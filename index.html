@@ -485,6 +485,79 @@
             margin: 1rem 0;
         }
     </style>
+    
+    <!-- ==================== 全局JavaScript函数定义 ==================== -->
+    <script>
+        // AI助手全局函数 - 必须在head中定义，确保页面加载时可用
+        function toggleAI() {
+            const assistant = document.getElementById('aiAssistant');
+            if (assistant) {
+                assistant.classList.toggle('active');
+                console.log('AI助手切换:', assistant.classList.contains('active') ? '打开' : '关闭');
+            } else {
+                console.error('错误: 找不到AI助手元素 #aiAssistant');
+            }
+        }
+        
+        async function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // 显示用户消息
+            addMessage(message, 'user');
+            input.value = '';
+            
+            // 显示"正在思考"提示
+            const typingId = addMessage('AI正在思考...', 'ai');
+            
+            try {
+                const response = await fetch('/.netlify/functions/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message })
+                });
+                
+                const data = await response.json();
+                
+                // 移除"正在思考"提示
+                const typingElement = document.getElementById(typingId);
+                if (typingElement) typingElement.remove();
+                
+                // 显示AI回复
+                addMessage(data.reply, 'ai');
+                
+            } catch (error) {
+                console.error('AI助手API错误:', error);
+                const typingElement = document.getElementById(typingId);
+                if (typingElement) typingElement.remove();
+                addMessage('抱歉，我暂时无法回答。请检查网络连接或稍后再试。', 'ai');
+            }
+        }
+        
+        function addMessage(text, type) {
+            const messagesDiv = document.getElementById('aiMessages');
+            if (!messagesDiv) {
+                console.error('错误: 找不到消息容器 #aiMessages');
+                return 'error-' + Date.now();
+            }
+            
+            const messageDiv = document.createElement('div');
+            const messageId = 'msg-' + Date.now();
+            
+            messageDiv.className = `message ${type}`;
+            messageDiv.id = messageId;
+            messageDiv.textContent = text;
+            
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            
+            return messageId;
+        }
+        
+        console.log('✅ AI助手全局函数已加载');
+    </script>
 </head>
 <body>
     <!-- ==================== 页面头部：网站的"封面" ==================== -->
@@ -1045,70 +1118,6 @@
 
     <!-- ==================== JavaScript：网页的"行为逻辑" ==================== -->
     <script>
-        // === AI助手功能（必须在最前面定义） ===
-        function toggleAI() {
-            const assistant = document.getElementById('aiAssistant');
-            if (assistant) {
-                assistant.classList.toggle('active');
-                console.log('AI助手状态切换:', assistant.classList.contains('active'));
-            } else {
-                console.error('找不到AI助手元素');
-            }
-        }
-        
-        async function sendMessage() {
-            const input = document.getElementById('userInput');
-            const message = input.value.trim();
-            
-            if (!message) return;
-            
-            // 显示用户消息
-            addMessage(message, 'user');
-            input.value = '';
-            
-            // 显示"正在输入"提示
-            const typingId = addMessage('正在思考...', 'ai');
-            
-            try {
-                // 调用Netlify Function
-                const response = await fetch('/.netlify/functions/chat', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message })
-                });
-                
-                const data = await response.json();
-                
-                // 移除"正在输入"提示
-                const typingElement = document.getElementById(typingId);
-                if (typingElement) typingElement.remove();
-                
-                // 显示AI回复
-                addMessage(data.reply, 'ai');
-                
-            } catch (error) {
-                const typingElement = document.getElementById(typingId);
-                if (typingElement) typingElement.remove();
-                addMessage('抱歉，我暂时无法回答。请稍后再试。', 'ai');
-                console.error('AI助手错误:', error);
-            }
-        }
-        
-        function addMessage(text, type) {
-            const messagesDiv = document.getElementById('aiMessages');
-            const messageDiv = document.createElement('div');
-            const messageId = 'msg-' + Date.now();
-            
-            messageDiv.className = `message ${type}`;
-            messageDiv.id = messageId;
-            messageDiv.textContent = text;
-            
-            messagesDiv.appendChild(messageDiv);
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
-            
-            return messageId;
-        }
-        
         // === 代码视图切换功能 ===
         const codeViews = {
             structure: `<!DOCTYPE html>
