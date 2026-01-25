@@ -324,27 +324,54 @@
         
         .ai-toggle {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
+            bottom: 30px;
+            right: 30px;
+            width: auto;
+            min-width: 180px;
+            height: 70px;
+            padding: 0 2rem;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 50%;
+            border-radius: 35px;
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 0.8rem;
             cursor: pointer;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.5);
             transition: all 0.3s;
             z-index: 1999;
+            animation: pulse-glow 2s infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 8px 30px rgba(102, 126, 234, 0.5);
+            }
+            50% {
+                box-shadow: 0 8px 40px rgba(102, 126, 234, 0.8);
+            }
         }
         
         .ai-toggle:hover {
-            transform: scale(1.1);
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 12px 40px rgba(102, 126, 234, 0.7);
         }
         
-        .ai-toggle span {
-            font-size: 2rem;
+        .ai-toggle span.emoji {
+            font-size: 2.5rem;
+            animation: bounce 1s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .ai-toggle span.text {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 0.5px;
         }
         
         /* === 页脚 === */
@@ -362,6 +389,23 @@
             section { padding: 1.5rem; }
             .ai-assistant { width: 90%; right: 5%; }
             nav ul { flex-direction: column; gap: 0.5rem; }
+            
+            /* 移动端AI助手按钮优化 */
+            .ai-toggle {
+                bottom: 20px;
+                right: 20px;
+                min-width: 140px;
+                height: 60px;
+                padding: 0 1.2rem;
+            }
+            
+            .ai-toggle span.text {
+                font-size: 0.95rem;
+            }
+            
+            .ai-toggle span.emoji {
+                font-size: 2rem;
+            }
         }
         
         /* === 测验题样式 === */
@@ -479,6 +523,7 @@
             <li><a href="#real-case">真实案例</a></li>
             <li><a href="#quiz">互动测验</a></li>
             <li><a href="#practice">互动练习</a></li>
+            <li><a href="javascript:void(0)" onclick="toggleAI()" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px;">🤖 AI助手</a></li>
         </ul>
     </nav>
 
@@ -488,6 +533,22 @@
         <!-- 第一部分：导论 -->
         <section id="intro">
             <h2>第一部分：导论——代码的"语感" (The Vibe of Code)</h2>
+            
+            <!-- AI助手使用提示 -->
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1.5rem 2rem; border-radius: 12px; margin-bottom: 2rem; display: flex; align-items: center; gap: 1.5rem; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);">
+                <div style="font-size: 3rem;">🤖</div>
+                <div style="flex: 1;">
+                    <h3 style="margin: 0 0 0.5rem 0; font-size: 1.3rem;">💡 学习小贴士</h3>
+                    <p style="margin: 0; opacity: 0.95; line-height: 1.6;">
+                        学习过程中遇到不理解的标签或概念？
+                        <strong style="color: #ffd700;">点击右下角"AI学习助手"按钮</strong>或导航栏的<strong style="color: #ffd700;">"🤖 AI助手"</strong>，随时提问！
+                        AI助手会用通俗易懂的语言为您解答。
+                    </p>
+                </div>
+                <button onclick="toggleAI()" style="background: white; color: #667eea; border: none; padding: 1rem 1.5rem; border-radius: 8px; font-weight: 700; cursor: pointer; white-space: nowrap; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: all 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                    立即咨询 →
+                </button>
+            </div>
             
             <h3>1.1 什么是 index.html？</h3>
             <p>从统计学视角看，<code>index.html</code> 是互联网世界中"概率最大"的入口文件名。就像英语中的 "the" 是最高频词汇一样，web服务器默认会寻找这个文件作为网站首页。</p>
@@ -962,8 +1023,9 @@
     </footer>
 
     <!-- ==================== AI助手浮动按钮 ==================== -->
-    <div class="ai-toggle" onclick="toggleAI()" title="点击打开AI助手">
-        <span>🤖</span>
+    <div class="ai-toggle" onclick="toggleAI()" title="点击打开AI学习助手">
+        <span class="emoji">🤖</span>
+        <span class="text">AI学习助手</span>
     </div>
 
     <!-- ==================== AI助手聊天框 ==================== -->
@@ -974,7 +1036,21 @@
         </div>
         <div class="ai-messages" id="aiMessages">
             <div class="message ai">
-                👋 你好！我是HTML学习助手。有任何不理解的代码或标签，都可以问我！
+                <div style="font-size: 2rem; text-align: center; margin-bottom: 0.5rem;">👋</div>
+                <strong style="color: #667eea; font-size: 1.1rem;">欢迎使用HTML学习助手！</strong>
+                <p style="margin: 0.5rem 0 0 0;">我是您的专属AI老师，可以帮助您：</p>
+                <ul style="margin: 0.5rem 0 0 1rem; padding-left: 1rem; line-height: 1.8;">
+                    <li>解释HTML标签和属性</li>
+                    <li>理解代码结构和语义</li>
+                    <li>回答学习中的疑问</li>
+                    <li>提供实用学习建议</li>
+                </ul>
+                <p style="margin: 1rem 0 0 0; padding: 0.8rem; background: #f0f9ff; border-left: 3px solid #667eea; border-radius: 4px; font-size: 0.9rem;">
+                    💡 <strong>示例问题：</strong><br>
+                    • "什么是div标签？"<br>
+                    • "class和id有什么区别？"<br>
+                    • "如何理解HTML的嵌套结构？"
+                </p>
             </div>
         </div>
         <div class="ai-input">
