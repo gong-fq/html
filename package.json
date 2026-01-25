@@ -1,0 +1,31 @@
+{
+  "name": "html-narrative-tutorial",
+  "version": "1.0.0",
+  "description": "代码即叙事：像读英文小说一样读懂HTML - 交互式教学网站",
+  "main": "index.html",
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "echo 'No build needed for static HTML'",
+    "deploy": "netlify deploy --prod"
+  },
+  "keywords": [
+    "HTML",
+    "教程",
+    "语言分析",
+    "Vibe Coding",
+    "教育"
+  ],
+  "author": "龚凤乾教授",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "netlify-cli": "^17.10.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/html-narrative-tutorial"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

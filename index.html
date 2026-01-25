@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <!-- ==================== 元数据区：网页的"简历" ==================== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="代码即叙事：像读英文小说一样读懂HTML - 为普通用户设计的HTML语言分析教程">
+    <meta name="keywords" content="HTML教程, 代码识读, 语言分析, Vibe Coding">
+    <meta name="author" content="HTML语言分析教师">
+    
+    <title>代码即叙事：像读英文小说一样读懂HTML</title>
+    
+    <!-- ==================== 样式表：网页的"化妆术" ==================== -->
+    <style>
+        /* === 全局样式：就像英语的"基本语法规则" === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        
+        /* === 容器：就像段落的"边距" === */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* === 头部导航：网站的"目录" === */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        header h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        header p {
+            text-align: center;
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+        
+        /* === 导航菜单：页面的"索引" === */
+        nav {
+            background: rgba(255,255,255,0.95);
+            padding: 1rem 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+        
+        nav a:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* === 章节样式：内容的"分段" === */
+        section {
+            background: white;
+            margin: 2rem 0;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+        
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+        
+        section h2 {
+            color: #667eea;
+            border-left: 5px solid #764ba2;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+        
+        section h3 {
+            color: #555;
+            margin: 1.5rem 0 1rem;
+            font-size: 1.5rem;
+        }
+        
+        /* === 代码示例：就像引用的"原文" === */
+        .code-example {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            position: relative;
+            overflow-x: auto;
+        }
+        
+        .code-example::before {
+            content: "💻 代码示例";
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: #667eea;
+            color: white;
+            padding: 2px 12px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        pre {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-top: 1rem;
+        }
+        
+        code {
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.95rem;
+        }
+        
+        /* === 提示框：重点"注释" === */
+        .tip-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+        
+        .tip-box::before {
+            content: "💡 提示";
+            font-weight: bold;
+            color: #2196F3;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+        
+        .warning-box::before {
+            content: "⚠️ 注意";
+            font-weight: bold;
+            color: #856404;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* === 交互式代码查看器 === */
+        .interactive-viewer {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .viewer-controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .viewer-controls button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .viewer-controls button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .viewer-controls button.active {
+            background: #764ba2;
+        }
+        
+        .code-display {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 2rem;
+            border-radius: 8px;
+            min-height: 300px;
+            white-space: pre-wrap;
+            font-family: 'Consolas', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        /* === AI助手聊天框 === */
+        .ai-assistant {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 400px;
+            max-height: 600px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            display: none;
+            flex-direction: column;
+            z-index: 2000;
+        }
+        
+        .ai-assistant.active {
+            display: flex;
+        }
+        
+        .ai-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .ai-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            max-height: 400px;
+        }
+        
+        .message {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            animation: slideIn 0.3s;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .message.user {
+            background: #e7f3ff;
+            margin-left: 2rem;
+        }
+        
+        .message.ai {
+            background: #f0f0f0;
+            margin-right: 2rem;
+        }
+        
+        .ai-input {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .ai-input input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .ai-input button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .ai-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+            z-index: 1999;
+        }
+        
+        .ai-toggle:hover {
+            transform: scale(1.1);
+        }
+        
+        .ai-toggle span {
+            font-size: 2rem;
+        }
+        
+        /* === 页脚 === */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        
+        /* === 响应式设计 === */
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8rem; }
+            section { padding: 1.5rem; }
+            .ai-assistant { width: 90%; right: 5%; }
+            nav ul { flex-direction: column; gap: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- ==================== 页面头部：网站的"封面" ==================== -->
+    <header>
+        <div class="container">
+            <h1>📖 代码即叙事</h1>
+            <p>像读英文小说一样读懂 HTML</p>
+            <p style="margin-top: 0.5rem; font-size: 0.95rem; opacity: 0.9;">龚凤乾教授设计</p>
+        </div>
+    </header>
+
+    <!-- ==================== 导航栏：快速跳转的"目录" ==================== -->
+    <nav>
+        <ul>
+            <li><a href="#intro">导论</a></li>
+            <li><a href="#macro">宏观解剖</a></li>
+            <li><a href="#micro">微观拆解</a></li>
+            <li><a href="#vibe">Vibe Coding</a></li>
+            <li><a href="#data">数据驱动</a></li>
+            <li><a href="#practice">互动练习</a></li>
+        </ul>
+    </nav>
+
+    <!-- ==================== 主内容区：网页的"正文" ==================== -->
+    <main class="container">
+        
+        <!-- 第一部分：导论 -->
+        <section id="intro">
+            <h2>第一部分：导论——代码的"语感" (The Vibe of Code)</h2>
+            
+            <h3>1.1 什么是 index.html？</h3>
+            <p>从统计学视角看，<code>index.html</code> 是互联网世界中"概率最大"的入口文件名。就像英语中的 "the" 是最高频词汇一样，web服务器默认会寻找这个文件作为网站首页。</p>
+            
+            <div class="tip-box">
+                <strong>统计学比喻：</strong>在所有网站文件中，index.html 的出现概率接近100%，就像正态分布的均值点——它是标准、是常态、是期望值。
+            </div>
+            
+            <h3>1.2 英语与代码的同构性</h3>
+            <p>HTML 的声明式语法模仿英语的祈使句与名词短语：</p>
+            
+            <div class="code-example">
+                <pre><code>&lt;!-- 英语祈使句："创建一个标题" --&gt;
+&lt;h1&gt;这是标题&lt;/h1&gt;
+
+&lt;!-- 英语名词短语："一个具有蓝色类别的段落" --&gt;
+&lt;p class="blue"&gt;这是段落&lt;/p&gt;
+
+&lt;!-- 英语动词短语："链接到某个页面" --&gt;
+&lt;a href="page.html"&gt;点击这里&lt;/a&gt;</code></pre>
+            </div>
+            
+            <h3>1.3 读代码不是写代码</h3>
+            <p>本教程的核心理念：<strong>识读（Literacy）优于编写（Syntax）</strong></p>
+            <p>就像阅读莎士比亚不需要会写十四行诗，读懂HTML也不需要记住所有标签。我们的目标是培养"代码语感"——能够理解代码的意图和结构。</p>
+        </section>
+
+        <!-- 第二部分：宏观解剖 -->
+        <section id="macro">
+            <h2>第二部分：宏观解剖——HTML 的"句法结构" (The Syntax Tree)</h2>
+            
+            <h3>2.1 嵌套的逻辑：大信封套小信封</h3>
+            <p>HTML 的嵌套结构就像统计学中的聚类分析——每个标签定义一个"数据簇"，子标签是簇内元素。</p>
+            
+            <div class="code-example">
+                <pre><code>&lt;!-- 最外层信封：整个HTML文档 --&gt;
+&lt;html&gt;
+    &lt;!-- 第二层信封：头部信息 --&gt;
+    &lt;head&gt;
+        &lt;title&gt;网页标题&lt;/title&gt;
+    &lt;/head&gt;
+    
+    &lt;!-- 第二层信封：主体内容 --&gt;
+    &lt;body&gt;
+        &lt;!-- 第三层信封：文章区 --&gt;
+        &lt;article&gt;
+            &lt;h1&gt;文章标题&lt;/h1&gt;
+            &lt;p&gt;文章段落&lt;/p&gt;
+        &lt;/article&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </div>
+            
+            <h3>2.2 &lt;head&gt; 与 &lt;body&gt;：元数据 vs 表现层</h3>
+            
+            <div class="tip-box">
+                <strong>&lt;head&gt; 是网页的"简历"：</strong>
+                <ul>
+                    <li>不直接显示在页面上</li>
+                    <li>包含标题、样式、脚本等元信息</li>
+                    <li>就像简历的个人信息栏——重要但不是主要内容</li>
+                </ul>
+            </div>
+            
+            <div class="warning-box">
+                <strong>&lt;body&gt; 是网页的"肉身"：</strong>
+                <ul>
+                    <li>所有可见内容都在这里</li>
+                    <li>文字、图片、视频、链接等</li>
+                    <li>就像简历的工作经历——这是用户真正看到的部分</li>
+                </ul>
+            </div>
+            
+            <h3>2.3 语义化的力量</h3>
+            <p><code>&lt;div&gt;</code> 是一个"代词"——它什么都可以是，但本身没有特定含义。<br>
+               <code>&lt;article&gt;</code> 是一个"专有名词"——它明确表示一篇文章。</p>
+            
+            <div class="code-example">
+                <pre><code>&lt;!-- 不语义化：像说"那个东西里有个东西" --&gt;
+&lt;div&gt;
+    &lt;div&gt;新闻标题&lt;/div&gt;
+    &lt;div&gt;新闻内容&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- 语义化：像说"文章里有标题和段落" --&gt;
+&lt;article&gt;
+    &lt;h2&gt;新闻标题&lt;/h2&gt;
+    &lt;p&gt;新闻内容&lt;/p&gt;
+&lt;/article&gt;</code></pre>
+            </div>
+        </section>
+
+        <!-- 第三部分：微观拆解 -->
+        <section id="micro">
+            <h2>第三部分：微观拆解——标签的"词性" (Parts of Speech in HTML)</h2>
+            
+            <h3>3.1 容器标签（名词/名词短语）</h3>
+            <p>这些标签定义边界和结构，就像英语中的名词定义事物：</p>
+            
+            <ul style="line-height: 2;">
+                <li><code>&lt;header&gt;</code> - 页眉（网页的"抬头"）</li>
+                <li><code>&lt;footer&gt;</code> - 页脚（网页的"落款"）</li>
+                <li><code>&lt;section&gt;</code> - 章节（内容的"段落"）</li>
+                <li><code>&lt;nav&gt;</code> - 导航（网页的"目录"）</li>
+            </ul>
+            
+            <h3>3.2 内容标签（文本与媒体）</h3>
+            
+            <div class="code-example">
+                <pre><code>&lt;!-- 标题等级：像论文的一级标题、二级标题 --&gt;
+&lt;h1&gt;一级标题&lt;/h1&gt;
+&lt;h2&gt;二级标题&lt;/h2&gt;
+&lt;h3&gt;三级标题&lt;/h3&gt;
+
+&lt;!-- 段落：文本的基本单位 --&gt;
+&lt;p&gt;这是一个段落，就像英文中的 paragraph。&lt;/p&gt;
+
+&lt;!-- 图片：视觉化的名词 --&gt;
+&lt;img src="photo.jpg" alt="图片描述"&gt;</code></pre>
+            </div>
+            
+            <div class="tip-box">
+                <strong>标题层级的统计意义：</strong>h1 出现频率最低但信息量最高（通常每页只有一个），h6 相反。这类似信息熵的概念——越稀有的信息，单位价值越高。
+            </div>
+            
+            <h3>3.3 链接与交互（动词/行为）</h3>
+            
+            <div class="code-example">
+                <pre><code>&lt;!-- &lt;a&gt; 标签：通往其他维度的"传送门" --&gt;
+&lt;a href="https://example.com"&gt;点击跳转&lt;/a&gt;
+
+&lt;!-- href = Hypertext Reference (超文本引用) --&gt;
+&lt;!-- 就像英语的动词 "refer to" --&gt;</code></pre>
+            </div>
+            
+            <h3>3.4 属性（形容词）</h3>
+            <p>属性为标签添加"修饰语"和"唯一身份"：</p>
+            
+            <div class="code-example">
+                <pre><code>&lt;!-- class：类别修饰（形容词） --&gt;
+&lt;p class="important highlight"&gt;重要段落&lt;/p&gt;
+&lt;!-- 翻译：一个"重要的"且"高亮的"段落 --&gt;
+
+&lt;!-- id：唯一标识（专有名词） --&gt;
+&lt;div id="mainContent"&gt;主要内容&lt;/div&gt;
+&lt;!-- 翻译：那个叫"mainContent"的特定区块 --&gt;</code></pre>
+            </div>
+        </section>
+
+        <!-- 第四部分：Vibe Coding -->
+        <section id="vibe">
+            <h2>第四部分：Vibe Coding 实践——读懂"画风" (The Schema of Vibe)</h2>
+            
+            <h3>4.1 常见代码模式识别</h3>
+            
+            <div class="warning-box">
+                <strong>导航栏模式：</strong>一眼认出导航栏的结构分布
+            </div>
+            
+            <div class="code-example">
+                <pre><code>&lt;!-- 典型导航栏结构：nav + ul + li + a --&gt;
+&lt;nav&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href="#home"&gt;首页&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#about"&gt;关于&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#contact"&gt;联系&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+            </div>
+            
+            <div class="tip-box">
+                <strong>产品卡片模式：</strong>电商网站最常见的布局
+            </div>
+            
+            <div class="code-example">
+                <pre><code>&lt;!-- 典型卡片结构 --&gt;
+&lt;div class="card"&gt;
+    &lt;img src="product.jpg" alt="产品图"&gt;
+    &lt;h3&gt;产品名称&lt;/h3&gt;
+    &lt;p class="price"&gt;¥99.99&lt;/p&gt;
+    &lt;button&gt;加入购物车&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+            
+            <h3>4.2 类名（Class Names）的秘密</h3>
+            <p>从命名法看开发者的逻辑思维：</p>
+            
+            <div class="code-example">
+                <pre><code>&lt;!-- BEM 命名法：Block__Element--Modifier --&gt;
+&lt;div class="card"&gt;                          &lt;!-- 块 --&gt;
+    &lt;h3 class="card__title"&gt;标题&lt;/h3&gt;       &lt;!-- 元素 --&gt;
+    &lt;p class="card__price--sale"&gt;特价&lt;/p&gt;  &lt;!-- 修饰符 --&gt;
+&lt;/div&gt;
+
+&lt;!-- 实用工具类命名：Tailwind CSS风格 --&gt;
+&lt;div class="flex justify-center items-center bg-blue-500"&gt;
+    &lt;!-- flex: 弹性布局 --&gt;
+    &lt;!-- justify-center: 水平居中 --&gt;
+    &lt;!-- items-center: 垂直居中 --&gt;
+    &lt;!-- bg-blue-500: 蓝色背景 --&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+            
+            <h3>4.3 注释的艺术</h3>
+            <p>读懂开发者留下的"内心独白"：</p>
+            
+            <div class="code-example">
+                <pre><code>&lt;!-- ==================== 
+     这是区块注释，用于分隔主要部分
+     ==================== --&gt;
+
+&lt;div class="hero"&gt;
+    &lt;!-- TODO: 添加视频背景 --&gt;
+    &lt;h1&gt;欢迎&lt;/h1&gt;
+&lt;/div&gt;
+
+&lt;!-- FIXME: 这个按钮在移动端显示有问题 --&gt;
+&lt;button&gt;提交&lt;/button&gt;</code></pre>
+            </div>
+        </section>
+
+        <!-- 第五部分：数据驱动 -->
+        <section id="data">
+            <h2>第五部分：SDD 与数据驱动的直觉 (Data-Driven Intuition)</h2>
+            
+            <h3>5.1 列表的统计意义</h3>
+            <p><code>&lt;ul&gt;</code> 和 <code>&lt;li&gt;</code> 是网页中最频繁出现的"数据阵列"：</p>
+            
+            <div class="code-example">
+                <pre><code>&lt;!-- 无序列表：就像Python的列表 --&gt;
+&lt;ul&gt;
+    &lt;li&gt;项目1&lt;/li&gt;
+    &lt;li&gt;项目2&lt;/li&gt;
+    &lt;li&gt;项目3&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- 有序列表：就像有索引的数组 --&gt;
+&lt;ol&gt;
+    &lt;li&gt;第一步&lt;/li&gt;
+    &lt;li&gt;第二步&lt;/li&gt;
+    &lt;li&gt;第三步&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+            </div>
+            
+            <div class="tip-box">
+                <strong>统计视角：</strong>在典型网页中，&lt;div&gt; 的出现频率最高（像"the"），但信息熵最低。真正的关键在于低频但高信息量的标签（如 &lt;video&gt;、&lt;canvas&gt;）。
+            </div>
+            
+            <h3>5.2 结构冗余与效率</h3>
+            <p>如何从繁杂的 HTML 源码中快速定位核心业务逻辑：</p>
+            
+            <ol style="line-height: 2;">
+                <li><strong>寻找语义标签</strong>：&lt;article&gt;、&lt;main&gt;、&lt;section&gt; 通常包含核心内容</li>
+                <li><strong>忽略通用容器</strong>：大量的 &lt;div&gt; 和 &lt;span&gt; 往往是样式容器</li>
+                <li><strong>关注类名</strong>："content"、"main"、"article" 等类名指向关键区域</li>
+                <li><strong>利用浏览器工具</strong>：开发者工具可以折叠无关代码</li>
+            </ol>
+            
+            <h3>5.3 现代工具辅助</h3>
+            <p>如何利用 AI (Vibe coding 助手) 解释那些看不懂的属性：</p>
+            
+            <div class="warning-box">
+                <strong>示例：</strong>看到 <code>data-toggle="modal"</code> 不理解？<br>
+                → 问AI："这个 data-toggle 属性是什么意思？"<br>
+                → AI回答："这是Bootstrap框架的自定义属性，用于控制模态框的显示"
+            </div>
+        </section>
+
+        <!-- 互动练习部分 -->
+        <section id="practice">
+            <h2>🎯 互动练习：解剖真实代码</h2>
+            
+            <div class="interactive-viewer">
+                <h3 style="margin-bottom: 1rem;">代码可视化查看器</h3>
+                <p style="margin-bottom: 1.5rem; color: #666;">点击按钮查看不同视角的HTML代码</p>
+                
+                <div class="viewer-controls">
+                    <button onclick="showView('structure')" class="active">查看结构</button>
+                    <button onclick="showView('semantic')">查看语义</button>
+                    <button onclick="showView('annotated')">查看注释版</button>
+                    <button onclick="showView('minimal')">查看精简版</button>
+                </div>
+                
+                <div class="code-display" id="codeDisplay">
+                    <!-- 代码将通过JavaScript动态加载 -->
+                </div>
+            </div>
+            
+            <div class="tip-box" style="margin-top: 2rem;">
+                <strong>练习建议：</strong>
+                <ol>
+                    <li>先看"查看结构"理解整体框架</li>
+                    <li>再看"查看语义"理解每个标签的含义</li>
+                    <li>对比"查看注释版"加深理解</li>
+                    <li>最后看"查看精简版"提取核心逻辑</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- 三个锦囊 -->
+        <section>
+            <h2>🎨 三个"跨界"锦囊</h2>
+            
+            <div class="tip-box">
+                <strong>锦囊一：利用统计学比喻</strong>
+                <p>div 的出现概率就像英语里的 the，它很重要但往往不承载核心语义。真正的关键在于那些低频但高信息量的标签（如 &lt;video&gt; 或 &lt;footer&gt;）。</p>
+            </div>
+            
+            <div class="tip-box">
+                <strong>锦囊二：强化英语关联</strong>
+                <p>HTML 属性 <code>href</code> (Hypertext Reference) 或 <code>src</code> (Source) 的缩写原理，可以联系英语词根记忆法，降低读者的恐惧感。</p>
+                <ul>
+                    <li>href = Hypertext Reference (超文本引用)</li>
+                    <li>src = Source (来源)</li>
+                    <li>alt = Alternative (替代文本)</li>
+                    <li>img = Image (图像)</li>
+                </ul>
+            </div>
+            
+            <div class="warning-box">
+                <strong>锦囊三：对比实验</strong>
+                <p>HTML 是"结构（Logic）"而非"装饰（Style）"。下面展示同一内容在有/无CSS渲染下的差异：</p>
+                <button onclick="toggleCSS()" style="margin-top: 1rem; padding: 0.8rem 1.5rem; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">
+                    切换样式显示
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==================== 页脚：网站的"版权声明" ==================== -->
+    <footer>
+        <p>&copy; 2026 代码即叙事 | 像读英文小说一样读懂HTML</p>
+        <p style="margin-top: 0.5rem; opacity: 0.8;">龚凤乾教授设计 | 本教程使用HTML构建，展示了我们所教授的所有概念 🎓</p>
+    </footer>
+
+    <!-- ==================== AI助手浮动按钮 ==================== -->
+    <div class="ai-toggle" onclick="toggleAI()" title="点击打开AI助手">
+        <span>🤖</span>
+    </div>
+
+    <!-- ==================== AI助手聊天框 ==================== -->
+    <div class="ai-assistant" id="aiAssistant">
+        <div class="ai-header">
+            <h3 style="margin: 0;">💬 HTML学习助手</h3>
+            <button onclick="toggleAI()" style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;">×</button>
+        </div>
+        <div class="ai-messages" id="aiMessages">
+            <div class="message ai">
+                👋 你好！我是HTML学习助手。有任何不理解的代码或标签，都可以问我！
+            </div>
+        </div>
+        <div class="ai-input">
+            <input type="text" id="userInput" placeholder="输入你的问题..." onkeypress="if(event.key==='Enter') sendMessage()">
+            <button onclick="sendMessage()">发送</button>
+        </div>
+    </div>
+
+    <!-- ==================== JavaScript：网页的"行为逻辑" ==================== -->
+    <script>
+        // === 代码视图切换功能 ===
+        const codeViews = {
+            structure: `<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <title>示例网页</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="#home">首页</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <article>
+        <h1>文章标题</h1>
+        <p>文章内容</p>
+      </article>
+    </main>
+    <footer>
+      <p>版权信息</p>
+    </footer>
+  </body>
+</html>`,
+            semantic: `<!-- 语义化解读 -->
+
+<html>           ← 根容器："整个文档"
+  <head>         ← 元数据区："网页简历"
+    <meta>       ← 元信息："字符编码"
+    <title>      ← 标题："浏览器标签页显示的文字"
+  </head>
+  
+  <body>         ← 主体区："用户看到的所有内容"
+    <header>     ← 页眉："网站顶部"
+      <nav>      ← 导航："菜单栏"
+        <ul>     ← 无序列表："菜单项容器"
+          <li>   ← 列表项："单个菜单项"
+            <a>  ← 锚点："可点击的链接"
+            
+    <main>       ← 主内容："页面核心内容"
+      <article>  ← 文章："独立的内容单元"
+        <h1>     ← 一级标题："最重要的标题"
+        <p>      ← 段落："文本段落"
+        
+    <footer>     ← 页脚："网站底部"
+      <p>        ← 段落："版权声明文本"`,
+            annotated: `<!DOCTYPE html> <!-- 文档类型声明："我是HTML5文档" -->
+<html lang="zh-CN"> <!-- 根元素，语言标记 -->
+  
+  <head> <!-- 头部开始：不可见的元信息 -->
+    <meta charset="UTF-8"> <!-- 字符编码：支持中文 -->
+    <title>示例网页</title> <!-- 浏览器标签页标题 -->
+  </head> <!-- 头部结束 -->
+  
+  <body> <!-- 主体开始：所有可见内容 -->
+    
+    <!-- ========== 页眉区域 ========== -->
+    <header> 
+      <nav> <!-- 导航容器 -->
+        <ul> <!-- 无序列表：菜单项 -->
+          <li> <!-- 列表项 -->
+            <a href="#home">首页</a> <!-- 链接 -->
+          </li>
+        </ul>
+      </nav>
+    </header>
+    
+    <!-- ========== 主内容区域 ========== -->
+    <main>
+      <article> <!-- 文章容器：独立内容单元 -->
+        <h1>文章标题</h1> <!-- 一级标题：最重要 -->
+        <p>文章内容</p> <!-- 段落：文本内容 -->
+      </article>
+    </main>
+    
+    <!-- ========== 页脚区域 ========== -->
+    <footer>
+      <p>版权信息</p> <!-- 版权声明 -->
+    </footer>
+    
+  </body> <!-- 主体结束 -->
+</html> <!-- 文档结束 -->`,
+            minimal: `<!-- 提取核心逻辑：去除所有容器和装饰 -->
+
+标题：示例网页
+
+导航：
+  → 首页
+
+文章标题
+文章内容
+
+版权信息
+
+/* 这就是页面的"数据骨架" */
+/* HTML的作用就是给这些内容加上结构和语义 */`
+        };
+        
+        // 显示指定视图
+        function showView(viewName) {
+            document.getElementById('codeDisplay').textContent = codeViews[viewName];
+            
+            // 更新按钮激活状态
+            document.querySelectorAll('.viewer-controls button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+        
+        // 页面加载时显示默认视图
+        window.addEventListener('DOMContentLoaded', () => {
+            showView('structure');
+        });
+        
+        // === AI助手功能 ===
+        function toggleAI() {
+            const assistant = document.getElementById('aiAssistant');
+            assistant.classList.toggle('active');
+        }
+        
+        async function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // 显示用户消息
+            addMessage(message, 'user');
+            input.value = '';
+            
+            // 显示"正在输入"提示
+            const typingId = addMessage('正在思考...', 'ai');
+            
+            try {
+                // 调用Netlify Function
+                const response = await fetch('/.netlify/functions/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message })
+                });
+                
+                const data = await response.json();
+                
+                // 移除"正在输入"提示
+                document.getElementById(typingId).remove();
+                
+                // 显示AI回复
+                addMessage(data.reply, 'ai');
+                
+            } catch (error) {
+                document.getElementById(typingId).remove();
+                addMessage('抱歉，我暂时无法回答。请稍后再试。', 'ai');
+            }
+        }
+        
+        function addMessage(text, type) {
+            const messagesDiv = document.getElementById('aiMessages');
+            const messageDiv = document.createElement('div');
+            const messageId = 'msg-' + Date.now();
+            
+            messageDiv.className = `message ${type}`;
+            messageDiv.id = messageId;
+            messageDiv.textContent = text;
+            
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            
+            return messageId;
+        }
+        
+        // === 切换CSS样式功能 ===
+        let cssEnabled = true;
+        function toggleCSS() {
+            const styleSheets = document.styleSheets;
+            cssEnabled = !cssEnabled;
+            
+            for (let i = 0; i < styleSheets.length; i++) {
+                styleSheets[i].disabled = !cssEnabled;
+            }
+            
+            event.target.textContent = cssEnabled ? '切换样式显示' : '恢复样式显示';
+        }
+        
+        // === 平滑滚动 ===
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
