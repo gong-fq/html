@@ -363,6 +363,99 @@
             .ai-assistant { width: 90%; right: 5%; }
             nav ul { flex-direction: column; gap: 0.5rem; }
         }
+        
+        /* === 测验题样式 === */
+        .quiz-question {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            transition: all 0.3s;
+        }
+        
+        .quiz-question:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+        }
+        
+        .quiz-question.correct {
+            border-color: #10b981;
+            background: #f0fdf4;
+        }
+        
+        .quiz-question.incorrect {
+            border-color: #ef4444;
+            background: #fef2f2;
+        }
+        
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+        
+        .quiz-option {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .quiz-option:hover {
+            background: #f3f4f6;
+            border-color: #667eea;
+        }
+        
+        .quiz-option input[type="radio"] {
+            margin-right: 1rem;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        
+        .quiz-option label {
+            cursor: pointer;
+            flex: 1;
+        }
+        
+        .quiz-explanation {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .quiz-question.answered .quiz-explanation {
+            display: block;
+        }
+        
+        .quiz-score {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        
+        .quiz-score h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .score-display {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
     </style>
 </head>
 <body>
@@ -383,6 +476,8 @@
             <li><a href="#micro">微观拆解</a></li>
             <li><a href="#vibe">Vibe Coding</a></li>
             <li><a href="#data">数据驱动</a></li>
+            <li><a href="#real-case">真实案例</a></li>
+            <li><a href="#quiz">互动测验</a></li>
             <li><a href="#practice">互动练习</a></li>
         </ul>
     </nav>
@@ -661,6 +756,138 @@
             </div>
         </section>
 
+        <!-- 真实案例分析 -->
+        <section id="real-case">
+            <h2>📚 真实案例分析：Chronos英语史探索网站</h2>
+            
+            <div class="tip-box">
+                <strong>案例背景：</strong>这是龚凤乾教授设计的一个真实项目——Chronos英语史时代探索网站。让我们用本教程学到的知识来分析这个专业网站的HTML结构。
+            </div>
+            
+            <h3>案例一：网站头部结构分析</h3>
+            <div class="code-example">
+                <pre><code>&lt;head&gt;
+    &lt;!-- 字符编码：支持中文 --&gt;
+    &lt;meta charset="UTF-8"&gt;
+    
+    &lt;!-- 响应式设计：适配移动设备 --&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    
+    &lt;!-- 页面标题：浏览器标签显示 --&gt;
+    &lt;title&gt;Chronos: 英语史探索 - 龚凤乾教授设计&lt;/title&gt;
+    
+    &lt;!-- 外部CSS框架：Tailwind CSS --&gt;
+    &lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;
+    
+    &lt;!-- React库：用于构建交互界面 --&gt;
+    &lt;script src="https://unpkg.com/react@18/umd/react.production.min.js"&gt;&lt;/script&gt;
+    &lt;script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"&gt;&lt;/script&gt;
+&lt;/head&gt;</code></pre>
+            </div>
+            
+            <div class="warning-box">
+                <strong>语言分析解读：</strong>
+                <ul>
+                    <li><code>&lt;meta charset="UTF-8"&gt;</code> - "元信息：我支持UTF-8字符集"</li>
+                    <li><code>&lt;meta name="viewport"...&gt;</code> - "元信息：我的视口配置"（响应式关键）</li>
+                    <li><code>&lt;script src="..."&gt;</code> - "引用外部脚本"（从CDN加载）</li>
+                    <li>这个head区就像简历的"技能栏"——列出网站需要的所有工具和配置</li>
+                </ul>
+            </div>
+            
+            <h3>案例二：侧边栏导航结构</h3>
+            <div class="code-example">
+                <pre><code>&lt;aside className="w-72 bg-slate-900 text-white fixed h-screen"&gt;
+    &lt;div className="p-8 border-b border-slate-700"&gt;
+        &lt;h2 className="text-3xl font-black"&gt;Chronos&lt;/h2&gt;
+        &lt;p className="text-sm text-slate-400"&gt;英语史时代探索&lt;/p&gt;
+        &lt;p className="text-xs text-slate-500"&gt;龚凤乾教授 设计&lt;/p&gt;
+    &lt;/div&gt;
+    
+    &lt;nav className="p-4"&gt;
+        &lt;button className="w-full text-left p-4 rounded-xl bg-blue-600"&gt;
+            &lt;div className="text-sm font-bold"&gt;Old English&lt;/div&gt;
+            &lt;div className="text-[11px]"&gt;古英语&lt;/div&gt;
+        &lt;/button&gt;
+    &lt;/nav&gt;
+&lt;/aside&gt;</code></pre>
+            </div>
+            
+            <div class="tip-box">
+                <strong>Vibe Coding识别：</strong>
+                <ol>
+                    <li><code>&lt;aside&gt;</code> - 语义化标签，表示"侧边栏"（比div更语义化）</li>
+                    <li><code>className</code> - React中的class属性（避免与JavaScript关键字冲突）</li>
+                    <li><code>w-72</code>, <code>bg-slate-900</code> - Tailwind CSS实用类（宽度72、深灰背景）</li>
+                    <li><code>fixed</code> - 固定定位，侧边栏不随页面滚动</li>
+                    <li>这是典型的"侧边栏+导航"模式，电商和文档网站常见</li>
+                </ol>
+            </div>
+            
+            <h3>案例三：双语内容展示结构</h3>
+            <div class="code-example">
+                <pre><code>&lt;div className="bilingual-grid"&gt;
+    &lt;!-- 中文内容 --&gt;
+    &lt;div className="p-8 bg-slate-50 rounded-2xl"&gt;
+        &lt;span className="text-xs font-bold text-slate-400"&gt;
+            双语简介 (中文)
+        &lt;/span&gt;
+        &lt;button onClick={() =&gt; speak(content.zh, 'zh')} className="play-btn"&gt;
+            &lt;i className="fas fa-volume-up"&gt;&lt;/i&gt;
+        &lt;/button&gt;
+        &lt;p className="text-lg"&gt;{content.zh}&lt;/p&gt;
+    &lt;/div&gt;
+    
+    &lt;!-- 英文内容 --&gt;
+    &lt;div className="p-8 bg-blue-50 rounded-2xl"&gt;
+        &lt;span className="text-xs font-bold text-blue-400"&gt;
+            Bilingual Context (English)
+        &lt;/span&gt;
+        &lt;button onClick={() =&gt; speak(content.en, 'en')} className="play-btn"&gt;
+            &lt;i className="fas fa-volume-up"&gt;&lt;/i&gt;
+        &lt;/button&gt;
+        &lt;p className="text-xl serif italic"&gt;{content.en}&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+            
+            <div class="warning-box">
+                <strong>数据驱动的结构设计：</strong>
+                <ul>
+                    <li>使用<code>.bilingual-grid</code>类创建网格布局（CSS Grid）</li>
+                    <li>两个并列的<code>&lt;div&gt;</code>容器，分别承载中英文</li>
+                    <li><code>{content.zh}</code> - React的JSX语法，动态插入数据</li>
+                    <li><code>onClick</code> - 事件处理器，点击按钮触发语音朗读</li>
+                    <li>这种对称结构在双语网站中频率极高，是典型的"数据阵列"展示</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 互动练习和小测验 -->
+        <section id="quiz">
+            <h2>✅ 互动小测验：检验你的HTML识读能力</h2>
+            
+            <div class="tip-box">
+                <strong>说明：</strong>以下测验题目帮助你检验对HTML的理解。记住：我们的目标是"识读"代码，而非"编写"代码！
+            </div>
+            
+            <!-- 测验题目容器 -->
+            <div id="quizContainer">
+                <!-- 题目将通过JavaScript动态生成 -->
+            </div>
+            
+            <div style="margin-top: 2rem; text-align: center;">
+                <button onclick="checkAnswers()" style="padding: 1rem 2rem; background: #667eea; color: white; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: 600; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.3s;">
+                    提交答案，查看得分 🎯
+                </button>
+                <button onclick="resetQuiz()" style="margin-left: 1rem; padding: 1rem 2rem; background: #6b7280; color: white; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: 600; cursor: pointer;">
+                    重置测验
+                </button>
+            </div>
+            
+            <div id="quizResult" style="margin-top: 2rem; display: none;"></div>
+        </section>
+
         <!-- 互动练习部分 -->
         <section id="practice">
             <h2>🎯 互动练习：解剖真实代码</h2>
@@ -674,6 +901,7 @@
                     <button onclick="showView('semantic')">查看语义</button>
                     <button onclick="showView('annotated')">查看注释版</button>
                     <button onclick="showView('minimal')">查看精简版</button>
+                    <button onclick="showView('chronos')">Chronos案例</button>
                 </div>
                 
                 <div class="code-display" id="codeDisplay">
@@ -687,8 +915,12 @@
                     <li>先看"查看结构"理解整体框架</li>
                     <li>再看"查看语义"理解每个标签的含义</li>
                     <li>对比"查看注释版"加深理解</li>
-                    <li>最后看"查看精简版"提取核心逻辑</li>
+                    <li>查看"查看精简版"提取核心逻辑</li>
+                    <li>⭐ 重点学习"Chronos案例"——真实专业网站的代码结构</li>
                 </ol>
+                <p style="margin-top: 1rem; color: #667eea; font-weight: 600;">
+                    💡 提示：Chronos案例展示了现代web开发的真实场景，包含React、Tailwind CSS等流行技术栈。
+                </p>
             </div>
         </section>
 
@@ -851,7 +1083,146 @@
 版权信息
 
 /* 这就是页面的"数据骨架" */
-/* HTML的作用就是给这些内容加上结构和语义 */`
+/* HTML的作用就是给这些内容加上结构和语义 */`,
+            chronos: `<!-- Chronos英语史探索网站 - 真实案例精选 -->
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <!-- === 基础配置：网页的"身份证" === -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chronos: 英语史探索 - 龚凤乾教授设计</title>
+    
+    <!-- === 外部资源：从CDN加载框架和库 === -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- === 自定义样式：特殊视觉效果 === -->
+    <style>
+        /* 双语网格布局 */
+        .bilingual-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 2rem; 
+        }
+        
+        /* 播放按钮动画效果 */
+        .play-btn.playing { 
+            background: #22c55e; 
+            animation: pulse 1s infinite; 
+        }
+        
+        @keyframes pulse { 
+            0%, 100% { transform: scale(1); } 
+            50% { transform: scale(1.05); } 
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50">
+    <!-- === React挂载点：整个应用的"根" === -->
+    <div id="root"></div>
+    
+    <!-- === React组件代码：用JSX语法编写 === -->
+    <script type="text/babel">
+        const { useState } = React;
+        
+        function App() {
+            // 状态管理：当前选中的时代
+            const [currentEra, setCurrentEra] = useState('old-english');
+            
+            return (
+                <div className="flex">
+                    {/* === 侧边栏：固定导航 === */}
+                    <aside className="w-72 bg-slate-900 text-white fixed h-screen">
+                        <div className="p-8">
+                            <h2 className="text-3xl font-black">Chronos</h2>
+                            <p className="text-sm text-slate-400">英语史时代探索</p>
+                            <p className="text-xs text-slate-500">龚凤乾教授 设计</p>
+                        </div>
+                        
+                        {/* === 导航按钮列表 === */}
+                        <nav className="p-4">
+                            <button className="w-full p-4 bg-blue-600 rounded-xl">
+                                <div className="font-bold">Old English</div>
+                                <div className="text-xs">古英语</div>
+                            </button>
+                        </nav>
+                    </aside>
+                    
+                    {/* === 主内容区：可滚动 === */}
+                    <main className="ml-72 flex-1 p-10">
+                        <header className="mb-10">
+                            <h1 className="text-5xl font-black">Old English</h1>
+                            <span className="px-3 py-1 bg-blue-100 rounded-full">
+                                c. 450 - 1150 CE
+                            </span>
+                        </header>
+                        
+                        {/* === 双语内容网格 === */}
+                        <div className="bilingual-grid">
+                            {/* 中文 */}
+                            <div className="p-8 bg-slate-50 rounded-2xl">
+                                <span className="text-xs font-bold text-slate-400">
+                                    双语简介 (中文)
+                                </span>
+                                <button className="play-btn">
+                                    <i className="fas fa-volume-up"></i>
+                                </button>
+                                <p>盎格鲁-撒克逊人带来的语言...</p>
+                            </div>
+                            
+                            {/* 英文 */}
+                            <div className="p-8 bg-blue-50 rounded-2xl">
+                                <span className="text-xs font-bold text-blue-400">
+                                    Bilingual Context (English)
+                                </span>
+                                <button className="play-btn">
+                                    <i className="fas fa-volume-up"></i>
+                                </button>
+                                <p className="italic">Language of Anglo-Saxons...</p>
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            );
+        }
+        
+        // 渲染到页面
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
+</body>
+</html>
+
+/* === Chronos案例的关键特征分析 === */
+
+1. 【多框架整合】
+   - Tailwind CSS (实用类CSS框架)
+   - React (UI框架)
+   - Font Awesome (图标库)
+   
+2. 【响应式布局】
+   - w-72: 固定宽度侧边栏
+   - flex: 弹性布局
+   - grid: 网格布局（双语内容）
+   
+3. 【语义化结构】
+   - <aside>: 侧边栏
+   - <nav>: 导航区
+   - <main>: 主内容
+   - <header>: 页眉
+   
+4. 【交互特性】
+   - useState: React状态管理
+   - onClick: 事件处理
+   - 动画效果: CSS @keyframes
+   
+5. 【命名规范】
+   - className: React中的class
+   - bg-slate-900: Tailwind的颜色类
+   - bilingual-grid: 自定义语义类名`
         };
         
         // 显示指定视图
@@ -948,6 +1319,235 @@
                     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             });
+        });
+        
+        // === 测验题系统 ===
+        const quizQuestions = [
+            {
+                id: 1,
+                question: '在HTML中，<head>和<body>的主要区别是什么？',
+                options: [
+                    '<head>包含可见内容，<body>包含元数据',
+                    '<head>包含元数据和配置，<body>包含可见内容',
+                    '<head>和<body>没有实质区别，都可以放任何内容',
+                    '<head>用于样式，<body>用于脚本'
+                ],
+                correctIndex: 1,
+                explanation: '<head>是网页的"简历区"，包含标题、样式、脚本等元数据，不直接显示。<body>是网页的"主体区"，包含所有用户可见的内容。这就像书的版权页（head）和正文（body）的区别。'
+            },
+            {
+                id: 2,
+                question: '以下哪个标签是语义化标签，比<div>更能表达内容含义？',
+                options: [
+                    '<span>',
+                    '<article>',
+                    '<container>',
+                    '<box>'
+                ],
+                correctIndex: 1,
+                explanation: '<article>是语义化标签，明确表示"文章"或"独立内容单元"。而<div>只是通用容器，本身没有特定语义。使用语义化标签让代码更易读，对SEO和无障碍访问也更友好。'
+            },
+            {
+                id: 3,
+                question: '在Chronos案例中，className="w-72 bg-slate-900" 使用的是什么CSS框架的命名风格？',
+                options: [
+                    'Bootstrap',
+                    'Tailwind CSS',
+                    'Material UI',
+                    'Foundation'
+                ],
+                correctIndex: 1,
+                explanation: 'Tailwind CSS使用实用类（utility classes）命名法：w-72表示宽度，bg-slate-900表示深灰色背景。这种命名直接描述样式属性，而不是语义化的类名。'
+            },
+            {
+                id: 4,
+                question: 'href 属性是什么英文词的缩写？',
+                options: [
+                    'Hyper Reference',
+                    'Hypertext Reference',
+                    'HTML Reference',
+                    'Hyperlink Reference'
+                ],
+                correctIndex: 1,
+                explanation: 'href是"Hypertext Reference"（超文本引用）的缩写。记住英文全称可以帮助理解：它用于"引用"另一个"超文本"资源的位置。'
+            },
+            {
+                id: 5,
+                question: '看到这段代码：<ul><li>项目1</li><li>项目2</li></ul>，从统计学角度如何理解？',
+                options: [
+                    '<ul>是单个数据点',
+                    '<ul>是数据数组，<li>是数组元素',
+                    '<ul>是变量，<li>是函数',
+                    '<ul>和<li>没有数据结构关系'
+                ],
+                correctIndex: 1,
+                explanation: '<ul>（无序列表）就像一个数组或列表容器，每个<li>（列表项）是数组中的一个元素。这种"容器+元素"的模式在HTML中频率很高，类似数据结构中的数组。'
+            },
+            {
+                id: 6,
+                question: '在真实网站代码中，class 和 id 属性的主要区别是什么？',
+                options: [
+                    'class用于样式，id用于脚本',
+                    'class可以重复使用，id必须唯一',
+                    'class更重要，id可有可无',
+                    'class和id完全可以互换使用'
+                ],
+                correctIndex: 1,
+                explanation: 'class像"形容词"，可以给多个元素添加相同分类；id像"专有名词"，整个页面中必须唯一。这就像班级（class）里可以有多个学生，但学号（id）必须唯一。'
+            },
+            {
+                id: 7,
+                question: '以下哪个是自闭合标签（不需要配对的结束标签）？',
+                options: [
+                    '<div>',
+                    '<p>',
+                    '<img>',
+                    '<section>'
+                ],
+                correctIndex: 2,
+                explanation: '<img>是自闭合标签，写作<img src="..." alt="...">即可，不需要</img>。因为图片本身就是完整内容，不需要"包裹"其他元素。类似的还有<br>、<hr>、<input>等。'
+            },
+            {
+                id: 8,
+                question: '在Chronos案例中，<script src="https://cdn.tailwindcss.com"></script>放在哪里？',
+                options: [
+                    '只能放在<body>底部',
+                    '只能放在<head>中',
+                    '可以放在<head>或<body>中，但位置会影响加载顺序',
+                    '随便放哪里都一样'
+                ],
+                correctIndex: 2,
+                explanation: '脚本可以放在<head>或<body>中，但位置很重要！放在<head>中会先加载（可能阻塞页面渲染），放在<body>底部会后加载（页面内容先显示）。Chronos将CSS框架放在<head>是为了避免页面"闪烁"。'
+            },
+            {
+                id: 9,
+                question: '从"代码即叙事"角度看，HTML标签的嵌套结构最像什么？',
+                options: [
+                    '数学公式',
+                    '大信封套小信封（树状结构）',
+                    '线性排列的句子',
+                    '平行的段落'
+                ],
+                correctIndex: 1,
+                explanation: 'HTML的嵌套就像"大信封套小信封"或树状结构：<html>包含<body>，<body>包含<div>，<div>包含<p>。这种层级关系类似统计学中的聚类分析——每个标签定义一个"数据簇"。'
+            },
+            {
+                id: 10,
+                question: '看到代码中有大量<div>标签，从"信息熵"角度应该如何理解？',
+                options: [
+                    '<div>出现频率高，所以最重要',
+                    '<div>像英语的"the"，频率高但信息量低',
+                    '<div>应该完全避免使用',
+                    '<div>只能用于布局，不能用于内容'
+                ],
+                correctIndex: 1,
+                explanation: '<div>的出现频率就像英语的"the"——很高但信息熵低。真正重要的是那些低频但高信息量的标签（如<article>、<video>、<canvas>）。这是"统计学比喻"的核心：频率≠重要性。'
+            }
+        ];
+        
+        // 初始化测验
+        function initQuiz() {
+            const container = document.getElementById('quizContainer');
+            container.innerHTML = quizQuestions.map((q, index) => `
+                <div class="quiz-question" id="question-${q.id}">
+                    <h3 style="color: #667eea; margin-bottom: 1rem;">
+                        <span style="background: #667eea; color: white; padding: 4px 12px; border-radius: 6px; margin-right: 8px;">Q${index + 1}</span>
+                        ${q.question}
+                    </h3>
+                    <div class="quiz-options">
+                        ${q.options.map((option, i) => `
+                            <div class="quiz-option">
+                                <input type="radio" id="q${q.id}-opt${i}" name="question-${q.id}" value="${i}">
+                                <label for="q${q.id}-opt${i}">${option}</label>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="quiz-explanation">
+                        <strong style="color: #3b82f6;">💡 解析：</strong>
+                        ${q.explanation}
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // 检查答案
+        function checkAnswers() {
+            let score = 0;
+            let totalQuestions = quizQuestions.length;
+            
+            quizQuestions.forEach(q => {
+                const questionDiv = document.getElementById(`question-${q.id}`);
+                const selected = document.querySelector(`input[name="question-${q.id}"]:checked`);
+                
+                if (selected) {
+                    const selectedIndex = parseInt(selected.value);
+                    if (selectedIndex === q.correctIndex) {
+                        score++;
+                        questionDiv.classList.add('correct');
+                        questionDiv.classList.remove('incorrect');
+                    } else {
+                        questionDiv.classList.add('incorrect');
+                        questionDiv.classList.remove('correct');
+                    }
+                    questionDiv.classList.add('answered');
+                } else {
+                    questionDiv.classList.remove('correct', 'incorrect', 'answered');
+                }
+            });
+            
+            // 显示得分
+            const resultDiv = document.getElementById('quizResult');
+            const percentage = Math.round((score / totalQuestions) * 100);
+            let feedback = '';
+            let emoji = '';
+            
+            if (percentage >= 90) {
+                feedback = '优秀！您已经掌握了HTML识读的核心要领！';
+                emoji = '🏆';
+            } else if (percentage >= 70) {
+                feedback = '很好！继续保持，再多练习几次就能完全掌握！';
+                emoji = '🎉';
+            } else if (percentage >= 50) {
+                feedback = '不错！建议重新阅读教程内容，加深理解。';
+                emoji = '💪';
+            } else {
+                feedback = '加油！建议从头开始系统学习，打好基础。';
+                emoji = '📚';
+            }
+            
+            resultDiv.innerHTML = `
+                <div class="quiz-score">
+                    <h3>${emoji} 测验完成！</h3>
+                    <div class="score-display">${score} / ${totalQuestions}</div>
+                    <p style="font-size: 1.3rem; margin: 1rem 0;">正确率：${percentage}%</p>
+                    <p style="font-size: 1.1rem; opacity: 0.95;">${feedback}</p>
+                    <button onclick="resetQuiz()" style="margin-top: 1.5rem; padding: 0.8rem 2rem; background: white; color: #667eea; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem;">
+                        再测一次
+                    </button>
+                </div>
+            `;
+            resultDiv.style.display = 'block';
+            
+            // 滚动到结果
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        
+        // 重置测验
+        function resetQuiz() {
+            document.querySelectorAll('.quiz-question').forEach(q => {
+                q.classList.remove('correct', 'incorrect', 'answered');
+                q.querySelectorAll('input[type="radio"]').forEach(input => {
+                    input.checked = false;
+                });
+            });
+            document.getElementById('quizResult').style.display = 'none';
+            document.getElementById('quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        
+        // 页面加载时初始化测验
+        window.addEventListener('DOMContentLoaded', () => {
+            showView('structure');
+            initQuiz();
         });
     </script>
 </body>
