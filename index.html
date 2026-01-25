@@ -337,34 +337,18 @@
             justify-content: center;
             gap: 0.8rem;
             cursor: pointer;
-            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.5);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
             transition: all 0.3s;
             z-index: 1999;
-            animation: pulse-glow 2s infinite;
-        }
-        
-        @keyframes pulse-glow {
-            0%, 100% {
-                box-shadow: 0 8px 30px rgba(102, 126, 234, 0.5);
-            }
-            50% {
-                box-shadow: 0 8px 40px rgba(102, 126, 234, 0.8);
-            }
         }
         
         .ai-toggle:hover {
             transform: scale(1.05) translateY(-2px);
-            box-shadow: 0 12px 40px rgba(102, 126, 234, 0.7);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
         }
         
         .ai-toggle span.emoji {
             font-size: 2.5rem;
-            animation: bounce 1s infinite;
-        }
-        
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
         }
         
         .ai-toggle span.text {
@@ -1061,6 +1045,70 @@
 
     <!-- ==================== JavaScript：网页的"行为逻辑" ==================== -->
     <script>
+        // === AI助手功能（必须在最前面定义） ===
+        function toggleAI() {
+            const assistant = document.getElementById('aiAssistant');
+            if (assistant) {
+                assistant.classList.toggle('active');
+                console.log('AI助手状态切换:', assistant.classList.contains('active'));
+            } else {
+                console.error('找不到AI助手元素');
+            }
+        }
+        
+        async function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // 显示用户消息
+            addMessage(message, 'user');
+            input.value = '';
+            
+            // 显示"正在输入"提示
+            const typingId = addMessage('正在思考...', 'ai');
+            
+            try {
+                // 调用Netlify Function
+                const response = await fetch('/.netlify/functions/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message })
+                });
+                
+                const data = await response.json();
+                
+                // 移除"正在输入"提示
+                const typingElement = document.getElementById(typingId);
+                if (typingElement) typingElement.remove();
+                
+                // 显示AI回复
+                addMessage(data.reply, 'ai');
+                
+            } catch (error) {
+                const typingElement = document.getElementById(typingId);
+                if (typingElement) typingElement.remove();
+                addMessage('抱歉，我暂时无法回答。请稍后再试。', 'ai');
+                console.error('AI助手错误:', error);
+            }
+        }
+        
+        function addMessage(text, type) {
+            const messagesDiv = document.getElementById('aiMessages');
+            const messageDiv = document.createElement('div');
+            const messageId = 'msg-' + Date.now();
+            
+            messageDiv.className = `message ${type}`;
+            messageDiv.id = messageId;
+            messageDiv.textContent = text;
+            
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            
+            return messageId;
+        }
+        
         // === 代码视图切换功能 ===
         const codeViews = {
             structure: `<!DOCTYPE html>
@@ -1316,62 +1364,6 @@
         window.addEventListener('DOMContentLoaded', () => {
             showView('structure');
         });
-        
-        // === AI助手功能 ===
-        function toggleAI() {
-            const assistant = document.getElementById('aiAssistant');
-            assistant.classList.toggle('active');
-        }
-        
-        async function sendMessage() {
-            const input = document.getElementById('userInput');
-            const message = input.value.trim();
-            
-            if (!message) return;
-            
-            // 显示用户消息
-            addMessage(message, 'user');
-            input.value = '';
-            
-            // 显示"正在输入"提示
-            const typingId = addMessage('正在思考...', 'ai');
-            
-            try {
-                // 调用Netlify Function
-                const response = await fetch('/.netlify/functions/chat', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message })
-                });
-                
-                const data = await response.json();
-                
-                // 移除"正在输入"提示
-                document.getElementById(typingId).remove();
-                
-                // 显示AI回复
-                addMessage(data.reply, 'ai');
-                
-            } catch (error) {
-                document.getElementById(typingId).remove();
-                addMessage('抱歉，我暂时无法回答。请稍后再试。', 'ai');
-            }
-        }
-        
-        function addMessage(text, type) {
-            const messagesDiv = document.getElementById('aiMessages');
-            const messageDiv = document.createElement('div');
-            const messageId = 'msg-' + Date.now();
-            
-            messageDiv.className = `message ${type}`;
-            messageDiv.id = messageId;
-            messageDiv.textContent = text;
-            
-            messagesDiv.appendChild(messageDiv);
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
-            
-            return messageId;
-        }
         
         // === 切换CSS样式功能 ===
         let cssEnabled = true;
