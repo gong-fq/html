@@ -492,90 +492,90 @@
         
         // 代码视图数据
         const codeViews = {
-            structure: `<!DOCTYPE html>
-<html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8">
-    <title>示例网页</title>
-  </head>
-  <body>
-    <header>
-      <nav>
-        <ul>
-          <li><a href="#home">首页</a></li>
-        </ul>
-      </nav>
-    </header>
-    <main>
-      <article>
-        <h1>文章标题</h1>
-        <p>文章内容</p>
-      </article>
-    </main>
-    <footer>
-      <p>版权信息</p>
-    </footer>
-  </body>
-</html>`,
-            semantic: `<!-- 语义化解读 -->
+            structure: `&lt;!DOCTYPE html&gt;
+&lt;html lang="zh-CN"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;示例网页&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;header&gt;
+      &lt;nav&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href="#home"&gt;首页&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/nav&gt;
+    &lt;/header&gt;
+    &lt;main&gt;
+      &lt;article&gt;
+        &lt;h1&gt;文章标题&lt;/h1&gt;
+        &lt;p&gt;文章内容&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/main&gt;
+    &lt;footer&gt;
+      &lt;p&gt;版权信息&lt;/p&gt;
+    &lt;/footer&gt;
+  &lt;/body&gt;
+&lt;/html&gt;`,
+            semantic: `&lt;!-- 语义化解读 --&gt;
 
-<html>           ← 根容器："整个文档"
-  <head>         ← 元数据区："网页简历"
-    <meta>       ← 元信息："字符编码"
-    <title>      ← 标题："浏览器标签页显示的文字"
-  </head>
+&lt;html&gt;           ← 根容器："整个文档"
+  &lt;head&gt;         ← 元数据区："网页简历"
+    &lt;meta&gt;       ← 元信息："字符编码"
+    &lt;title&gt;      ← 标题："浏览器标签页显示的文字"
+  &lt;/head&gt;
   
-  <body>         ← 主体区："用户看到的所有内容"
-    <header>     ← 页眉："网站顶部"
-      <nav>      ← 导航："菜单栏"
-        <ul>     ← 无序列表："菜单项容器"
-          <li>   ← 列表项："单个菜单项"
-            <a>  ← 锚点："可点击的链接"
+  &lt;body&gt;         ← 主体区："用户看到的所有内容"
+    &lt;header&gt;     ← 页眉："网站顶部"
+      &lt;nav&gt;      ← 导航："菜单栏"
+        &lt;ul&gt;     ← 无序列表："菜单项容器"
+          &lt;li&gt;   ← 列表项："单个菜单项"
+            &lt;a&gt;  ← 锚点："可点击的链接"
             
-    <main>       ← 主内容："页面核心内容"
-      <article>  ← 文章："独立的内容单元"
-        <h1>     ← 一级标题："最重要的标题"
-        <p>      ← 段落："文本段落"
+    &lt;main&gt;       ← 主内容："页面核心内容"
+      &lt;article&gt;  ← 文章："独立的内容单元"
+        &lt;h1&gt;     ← 一级标题："最重要的标题"
+        &lt;p&gt;      ← 段落："文本段落"
         
-    <footer>     ← 页脚："网站底部"
-      <p>        ← 段落："版权声明文本"`,
-            annotated: `<!DOCTYPE html> <!-- 文档类型声明："我是HTML5文档" -->
-<html lang="zh-CN"> <!-- 根元素，语言标记 -->
+    &lt;footer&gt;     ← 页脚："网站底部"
+      &lt;p&gt;        ← 段落："版权声明文本"`,
+            annotated: `&lt;!DOCTYPE html&gt; &lt;!-- 文档类型声明："我是HTML5文档" --&gt;
+&lt;html lang="zh-CN"&gt; &lt;!-- 根元素，语言标记 --&gt;
   
-  <head> <!-- 头部开始：不可见的元信息 -->
-    <meta charset="UTF-8"> <!-- 字符编码：支持中文 -->
-    <title>示例网页</title> <!-- 浏览器标签页标题 -->
-  </head> <!-- 头部结束 -->
+  &lt;head&gt; &lt;!-- 头部开始：不可见的元信息 --&gt;
+    &lt;meta charset="UTF-8"&gt; &lt;!-- 字符编码：支持中文 --&gt;
+    &lt;title&gt;示例网页&lt;/title&gt; &lt;!-- 浏览器标签页标题 --&gt;
+  &lt;/head&gt; &lt;!-- 头部结束 --&gt;
   
-  <body> <!-- 主体开始：所有可见内容 -->
+  &lt;body&gt; &lt;!-- 主体开始：所有可见内容 --&gt;
     
-    <!-- ========== 页眉区域 ========== -->
-    <header> 
-      <nav> <!-- 导航容器 -->
-        <ul> <!-- 无序列表：菜单项 -->
-          <li> <!-- 列表项 -->
-            <a href="#home">首页</a> <!-- 链接 -->
-          </li>
-        </ul>
-      </nav>
-    </header>
+    &lt;!-- ========== 页眉区域 ========== --&gt;
+    &lt;header&gt; 
+      &lt;nav&gt; &lt;!-- 导航容器 --&gt;
+        &lt;ul&gt; &lt;!-- 无序列表：菜单项 --&gt;
+          &lt;li&gt; &lt;!-- 列表项 --&gt;
+            &lt;a href="#home"&gt;首页&lt;/a&gt; &lt;!-- 链接 --&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/nav&gt;
+    &lt;/header&gt;
     
-    <!-- ========== 主内容区域 ========== -->
-    <main>
-      <article> <!-- 文章容器：独立内容单元 -->
-        <h1>文章标题</h1> <!-- 一级标题：最重要 -->
-        <p>文章内容</p> <!-- 段落：文本内容 -->
-      </article>
-    </main>
+    &lt;!-- ========== 主内容区域 ========== --&gt;
+    &lt;main&gt;
+      &lt;article&gt; &lt;!-- 文章容器：独立内容单元 --&gt;
+        &lt;h1&gt;文章标题&lt;/h1&gt; &lt;!-- 一级标题：最重要 --&gt;
+        &lt;p&gt;文章内容&lt;/p&gt; &lt;!-- 段落：文本内容 --&gt;
+      &lt;/article&gt;
+    &lt;/main&gt;
     
-    <!-- ========== 页脚区域 ========== -->
-    <footer>
-      <p>版权信息</p> <!-- 版权声明 -->
-    </footer>
+    &lt;!-- ========== 页脚区域 ========== --&gt;
+    &lt;footer&gt;
+      &lt;p&gt;版权信息&lt;/p&gt; &lt;!-- 版权声明 --&gt;
+    &lt;/footer&gt;
     
-  </body> <!-- 主体结束 -->
-</html> <!-- 文档结束 -->`,
-            minimal: `<!-- 提取核心逻辑：去除所有容器和装饰 -->
+  &lt;/body&gt; &lt;!-- 主体结束 --&gt;
+&lt;/html&gt; &lt;!-- 文档结束 --&gt;`,
+            minimal: `&lt;!-- 提取核心逻辑：去除所有容器和装饰 --&gt;
 
 标题：示例网页
 
@@ -589,57 +589,57 @@
 
 /* 这就是页面的"数据骨架" */
 /* HTML的作用就是给这些内容加上结构和语义 */`,
-            chronos: `<!-- Chronos英语史探索网站 - 真实案例精选 -->
+            chronos: `&lt;!-- Chronos英语史探索网站 - 真实案例精选 --&gt;
 
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <!-- === 基础配置：网页的"身份证" === -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chronos: 英语史探索 - 龚凤乾教授设计</title>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="zh-CN"&gt;
+&lt;head&gt;
+    &lt;!-- === 基础配置：网页的"身份证" === --&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Chronos: 英语史探索 - 龚凤乾教授设计&lt;/title&gt;
     
-    <!-- === 外部资源：从CDN加载框架和库 === -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    &lt;!-- === 外部资源：从CDN加载框架和库 === --&gt;
+    &lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;
+    &lt;script src="https://unpkg.com/react@18/umd/react.production.min.js"&gt;&lt;/script&gt;
     
-    <!-- === 自定义样式：特殊视觉效果 === -->
-    <style>
+    &lt;!-- === 自定义样式：特殊视觉效果 === --&gt;
+    &lt;style&gt;
         .bilingual-grid { 
             display: grid; 
             grid-template-columns: 1fr 1fr; 
             gap: 2rem; 
         }
-    </style>
-</head>
+    &lt;/style&gt;
+&lt;/head&gt;
 
-<body class="bg-slate-50">
-    <!-- === React挂载点：整个应用的"根" === -->
-    <div id="root"></div>
+&lt;body class="bg-slate-50"&gt;
+    &lt;!-- === React挂载点：整个应用的"根" === --&gt;
+    &lt;div id="root"&gt;&lt;/div&gt;
     
-    <!-- === React组件代码：用JSX语法编写 === -->
-    <script type="text/babel">
+    &lt;!-- === React组件代码：用JSX语法编写 === --&gt;
+    &lt;script type="text/babel"&gt;
         const { useState } = React;
         
         function App() {
             return (
-                <div className="flex">
+                &lt;div className="flex"&gt;
                     {/* === 侧边栏：固定导航 === */}
-                    <aside className="w-72 bg-slate-900 text-white">
-                        <h2 className="text-3xl">Chronos</h2>
-                        <p className="text-sm">英语史时代探索</p>
-                    </aside>
+                    &lt;aside className="w-72 bg-slate-900 text-white"&gt;
+                        &lt;h2 className="text-3xl"&gt;Chronos&lt;/h2&gt;
+                        &lt;p className="text-sm"&gt;英语史时代探索&lt;/p&gt;
+                    &lt;/aside&gt;
                     
                     {/* === 主内容区：可滚动 === */}
-                    <main className="ml-72 flex-1 p-10">
-                        <h1 className="text-5xl">Old English</h1>
-                    </main>
-                </div>
+                    &lt;main className="ml-72 flex-1 p-10"&gt;
+                        &lt;h1 className="text-5xl"&gt;Old English&lt;/h1&gt;
+                    &lt;/main&gt;
+                &lt;/div&gt;
             );
         }
-    </script>
-</body>
-</html>
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
 
 /* === Chronos案例的关键特征分析 === */
 1. 【多框架整合】Tailwind CSS + React + Font Awesome
@@ -653,27 +653,27 @@
         const quizQuestions = [
             {
                 id: 1,
-                question: '在HTML中，<head>和<body>的主要区别是什么？',
+                question: '在HTML中，&lt;head&gt;和&lt;body&gt;的主要区别是什么？',
                 options: [
-                    '<head>包含可见内容，<body>包含元数据',
-                    '<head>包含元数据和配置，<body>包含可见内容',
-                    '<head>和<body>没有实质区别，都可以放任何内容',
-                    '<head>用于样式，<body>用于脚本'
+                    '&lt;head&gt;包含可见内容，&lt;body&gt;包含元数据',
+                    '&lt;head&gt;包含元数据和配置，&lt;body&gt;包含可见内容',
+                    '&lt;head&gt;和&lt;body&gt;没有实质区别，都可以放任何内容',
+                    '&lt;head&gt;用于样式，&lt;body&gt;用于脚本'
                 ],
                 correctIndex: 1,
-                explanation: '<head>是网页的"简历区"，包含标题、样式、脚本等元数据，不直接显示。<body>是网页的"主体区"，包含所有用户可见的内容。这就像书的版权页（head）和正文（body）的区别。'
+                explanation: '&lt;head&gt;是网页的"简历区"，包含标题、样式、脚本等元数据，不直接显示。&lt;body&gt;是网页的"主体区"，包含所有用户可见的内容。这就像书的版权页（head）和正文（body）的区别。'
             },
             {
                 id: 2,
-                question: '以下哪个标签是语义化标签，比<div>更能表达内容含义？',
+                question: '以下哪个标签是语义化标签，比&lt;div&gt;更能表达内容含义？',
                 options: [
-                    '<span>',
-                    '<article>',
-                    '<container>',
-                    '<box>'
+                    '&lt;span&gt;',
+                    '&lt;article&gt;',
+                    '&lt;container&gt;',
+                    '&lt;box&gt;'
                 ],
                 correctIndex: 1,
-                explanation: '<article>是语义化标签，明确表示"文章"或"独立内容单元"。而<div>只是通用容器，本身没有特定语义。使用语义化标签让代码更易读，对SEO和无障碍访问也更友好。'
+                explanation: '&lt;article&gt;是语义化标签，明确表示"文章"或"独立内容单元"。而&lt;div&gt;只是通用容器，本身没有特定语义。使用语义化标签让代码更易读，对SEO和无障碍访问也更友好。'
             },
             {
                 id: 3,
@@ -701,15 +701,15 @@
             },
             {
                 id: 5,
-                question: '看到这段代码：<ul><li>项目1</li><li>项目2</li></ul>，从统计学角度如何理解？',
+                question: '看到这段代码：&lt;ul&gt;&lt;li&gt;项目1&lt;/li&gt;&lt;li&gt;项目2&lt;/li&gt;&lt;/ul&gt;，从统计学角度如何理解？',
                 options: [
-                    '<ul>是单个数据点',
-                    '<ul>是数据数组，<li>是数组元素',
-                    '<ul>是变量，<li>是函数',
-                    '<ul>和<li>没有数据结构关系'
+                    '&lt;ul&gt;是单个数据点',
+                    '&lt;ul&gt;是数据数组，&lt;li&gt;是数组元素',
+                    '&lt;ul&gt;是变量，&lt;li&gt;是函数',
+                    '&lt;ul&gt;和&lt;li&gt;没有数据结构关系'
                 ],
                 correctIndex: 1,
-                explanation: '<ul>（无序列表）就像一个数组或列表容器，每个<li>（列表项）是数组中的一个元素。这种"容器+元素"的模式在HTML中频率很高，类似数据结构中的数组。'
+                explanation: '&lt;ul&gt;（无序列表）就像一个数组或列表容器，每个&lt;li&gt;（列表项）是数组中的一个元素。这种"容器+元素"的模式在HTML中频率很高，类似数据结构中的数组。'
             },
             {
                 id: 6,
@@ -727,25 +727,25 @@
                 id: 7,
                 question: '以下哪个是自闭合标签（不需要配对的结束标签）？',
                 options: [
-                    '<div>',
-                    '<p>',
-                    '<img>',
-                    '<section>'
+                    '&lt;div&gt;',
+                    '&lt;p&gt;',
+                    '&lt;img&gt;',
+                    '&lt;section&gt;'
                 ],
                 correctIndex: 2,
-                explanation: '<img>是自闭合标签，写作<img src="..." alt="...">即可，不需要</img>。因为图片本身就是完整内容，不需要"包裹"其他元素。类似的还有<br>、<hr>、<input>等。'
+                explanation: '&lt;img&gt;是自闭合标签，写作&lt;img src="..." alt="..."&gt;即可，不需要&lt;/img&gt;。因为图片本身就是完整内容，不需要"包裹"其他元素。类似的还有&lt;br&gt;、&lt;hr&gt;、&lt;input&gt;等。'
             },
             {
                 id: 8,
-                question: '在Chronos案例中，<script src="https://cdn.tailwindcss.com"></script>放在哪里？',
+                question: '在Chronos案例中，&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;放在哪里？',
                 options: [
-                    '只能放在<body>底部',
-                    '只能放在<head>中',
-                    '可以放在<head>或<body>中，但位置会影响加载顺序',
+                    '只能放在&lt;body&gt;底部',
+                    '只能放在&lt;head&gt;中',
+                    '可以放在&lt;head&gt;或&lt;body&gt;中，但位置会影响加载顺序',
                     '随便放哪里都一样'
                 ],
                 correctIndex: 2,
-                explanation: '脚本可以放在<head>或<body>中，但位置很重要！放在<head>中会先加载（可能阻塞页面渲染），放在<body>底部会后加载（页面内容先显示）。Chronos将CSS框架放在<head>是为了避免页面"闪烁"。'
+                explanation: '脚本可以放在&lt;head&gt;或&lt;body&gt;中，但位置很重要！放在&lt;head&gt;中会先加载（可能阻塞页面渲染），放在&lt;body&gt;底部会后加载（页面内容先显示）。Chronos将CSS框架放在&lt;head&gt;是为了避免页面"闪烁"。'
             },
             {
                 id: 9,
@@ -757,19 +757,19 @@
                     '平行的段落'
                 ],
                 correctIndex: 1,
-                explanation: 'HTML的嵌套就像"大信封套小信封"或树状结构：<html>包含<body>，<body>包含<div>，<div>包含<p>。这种层级关系类似统计学中的聚类分析——每个标签定义一个"数据簇"。'
+                explanation: 'HTML的嵌套就像"大信封套小信封"或树状结构：&lt;html&gt;包含&lt;body&gt;，&lt;body&gt;包含&lt;div&gt;，&lt;div&gt;包含&lt;p&gt;。这种层级关系类似统计学中的聚类分析——每个标签定义一个"数据簇"。'
             },
             {
                 id: 10,
-                question: '看到代码中有大量<div>标签，从"信息熵"角度应该如何理解？',
+                question: '看到代码中有大量&lt;div&gt;标签，从"信息熵"角度应该如何理解？',
                 options: [
-                    '<div>出现频率高，所以最重要',
-                    '<div>像英语的"the"，频率高但信息量低',
-                    '<div>应该完全避免使用',
-                    '<div>只能用于布局，不能用于内容'
+                    '&lt;div&gt;出现频率高，所以最重要',
+                    '&lt;div&gt;像英语的"the"，频率高但信息量低',
+                    '&lt;div&gt;应该完全避免使用',
+                    '&lt;div&gt;只能用于布局，不能用于内容'
                 ],
                 correctIndex: 1,
-                explanation: '<div>的出现频率就像英语的"the"——很高但信息熵低。真正重要的是那些低频但高信息量的标签（如<article>、<video>、<canvas>）。这是"统计学比喻"的核心：频率≠重要性。'
+                explanation: '&lt;div&gt;的出现频率就像英语的"the"——很高但信息熵低。真正重要的是那些低频但高信息量的标签（如&lt;article&gt;、&lt;video&gt;、&lt;canvas&gt;）。这是"统计学比喻"的核心：频率≠重要性。'
             }
         ];
         
