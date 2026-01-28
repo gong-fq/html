@@ -488,7 +488,293 @@
     
     <!-- ==================== 全局JavaScript函数定义 ==================== -->
     <script>
-        // AI助手全局函数 - 必须在head中定义，确保页面加载时可用
+        // ==================== 全局变量和数据 ====================
+        
+        // 代码视图数据
+        const codeViews = {
+            structure: `<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <title>示例网页</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="#home">首页</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <article>
+        <h1>文章标题</h1>
+        <p>文章内容</p>
+      </article>
+    </main>
+    <footer>
+      <p>版权信息</p>
+    </footer>
+  </body>
+</html>`,
+            semantic: `<!-- 语义化解读 -->
+
+<html>           ← 根容器："整个文档"
+  <head>         ← 元数据区："网页简历"
+    <meta>       ← 元信息："字符编码"
+    <title>      ← 标题："浏览器标签页显示的文字"
+  </head>
+  
+  <body>         ← 主体区："用户看到的所有内容"
+    <header>     ← 页眉："网站顶部"
+      <nav>      ← 导航："菜单栏"
+        <ul>     ← 无序列表："菜单项容器"
+          <li>   ← 列表项："单个菜单项"
+            <a>  ← 锚点："可点击的链接"
+            
+    <main>       ← 主内容："页面核心内容"
+      <article>  ← 文章："独立的内容单元"
+        <h1>     ← 一级标题："最重要的标题"
+        <p>      ← 段落："文本段落"
+        
+    <footer>     ← 页脚："网站底部"
+      <p>        ← 段落："版权声明文本"`,
+            annotated: `<!DOCTYPE html> <!-- 文档类型声明："我是HTML5文档" -->
+<html lang="zh-CN"> <!-- 根元素，语言标记 -->
+  
+  <head> <!-- 头部开始：不可见的元信息 -->
+    <meta charset="UTF-8"> <!-- 字符编码：支持中文 -->
+    <title>示例网页</title> <!-- 浏览器标签页标题 -->
+  </head> <!-- 头部结束 -->
+  
+  <body> <!-- 主体开始：所有可见内容 -->
+    
+    <!-- ========== 页眉区域 ========== -->
+    <header> 
+      <nav> <!-- 导航容器 -->
+        <ul> <!-- 无序列表：菜单项 -->
+          <li> <!-- 列表项 -->
+            <a href="#home">首页</a> <!-- 链接 -->
+          </li>
+        </ul>
+      </nav>
+    </header>
+    
+    <!-- ========== 主内容区域 ========== -->
+    <main>
+      <article> <!-- 文章容器：独立内容单元 -->
+        <h1>文章标题</h1> <!-- 一级标题：最重要 -->
+        <p>文章内容</p> <!-- 段落：文本内容 -->
+      </article>
+    </main>
+    
+    <!-- ========== 页脚区域 ========== -->
+    <footer>
+      <p>版权信息</p> <!-- 版权声明 -->
+    </footer>
+    
+  </body> <!-- 主体结束 -->
+</html> <!-- 文档结束 -->`,
+            minimal: `<!-- 提取核心逻辑：去除所有容器和装饰 -->
+
+标题：示例网页
+
+导航：
+  → 首页
+
+文章标题
+文章内容
+
+版权信息
+
+/* 这就是页面的"数据骨架" */
+/* HTML的作用就是给这些内容加上结构和语义 */`,
+            chronos: `<!-- Chronos英语史探索网站 - 真实案例精选 -->
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <!-- === 基础配置：网页的"身份证" === -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chronos: 英语史探索 - 龚凤乾教授设计</title>
+    
+    <!-- === 外部资源：从CDN加载框架和库 === -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    
+    <!-- === 自定义样式：特殊视觉效果 === -->
+    <style>
+        .bilingual-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 2rem; 
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50">
+    <!-- === React挂载点：整个应用的"根" === -->
+    <div id="root"></div>
+    
+    <!-- === React组件代码：用JSX语法编写 === -->
+    <script type="text/babel">
+        const { useState } = React;
+        
+        function App() {
+            return (
+                <div className="flex">
+                    {/* === 侧边栏：固定导航 === */}
+                    <aside className="w-72 bg-slate-900 text-white">
+                        <h2 className="text-3xl">Chronos</h2>
+                        <p className="text-sm">英语史时代探索</p>
+                    </aside>
+                    
+                    {/* === 主内容区：可滚动 === */}
+                    <main className="ml-72 flex-1 p-10">
+                        <h1 className="text-5xl">Old English</h1>
+                    </main>
+                </div>
+            );
+        }
+    </script>
+</body>
+</html>
+
+/* === Chronos案例的关键特征分析 === */
+1. 【多框架整合】Tailwind CSS + React + Font Awesome
+2. 【响应式布局】flex, grid布局
+3. 【语义化结构】aside, nav, main, header
+4. 【交互特性】useState状态管理, onClick事件
+5. 【命名规范】className (React), bg-slate-900 (Tailwind)`
+        };
+        
+        // 测验题数据
+        const quizQuestions = [
+            {
+                id: 1,
+                question: '在HTML中，<head>和<body>的主要区别是什么？',
+                options: [
+                    '<head>包含可见内容，<body>包含元数据',
+                    '<head>包含元数据和配置，<body>包含可见内容',
+                    '<head>和<body>没有实质区别，都可以放任何内容',
+                    '<head>用于样式，<body>用于脚本'
+                ],
+                correctIndex: 1,
+                explanation: '<head>是网页的"简历区"，包含标题、样式、脚本等元数据，不直接显示。<body>是网页的"主体区"，包含所有用户可见的内容。这就像书的版权页（head）和正文（body）的区别。'
+            },
+            {
+                id: 2,
+                question: '以下哪个标签是语义化标签，比<div>更能表达内容含义？',
+                options: [
+                    '<span>',
+                    '<article>',
+                    '<container>',
+                    '<box>'
+                ],
+                correctIndex: 1,
+                explanation: '<article>是语义化标签，明确表示"文章"或"独立内容单元"。而<div>只是通用容器，本身没有特定语义。使用语义化标签让代码更易读，对SEO和无障碍访问也更友好。'
+            },
+            {
+                id: 3,
+                question: '在Chronos案例中，className="w-72 bg-slate-900" 使用的是什么CSS框架的命名风格？',
+                options: [
+                    'Bootstrap',
+                    'Tailwind CSS',
+                    'Material UI',
+                    'Foundation'
+                ],
+                correctIndex: 1,
+                explanation: 'Tailwind CSS使用实用类（utility classes）命名法：w-72表示宽度，bg-slate-900表示深灰色背景。这种命名直接描述样式属性，而不是语义化的类名。'
+            },
+            {
+                id: 4,
+                question: 'href 属性是什么英文词的缩写？',
+                options: [
+                    'Hyper Reference',
+                    'Hypertext Reference',
+                    'HTML Reference',
+                    'Hyperlink Reference'
+                ],
+                correctIndex: 1,
+                explanation: 'href是"Hypertext Reference"（超文本引用）的缩写。记住英文全称可以帮助理解：它用于"引用"另一个"超文本"资源的位置。'
+            },
+            {
+                id: 5,
+                question: '看到这段代码：<ul><li>项目1</li><li>项目2</li></ul>，从统计学角度如何理解？',
+                options: [
+                    '<ul>是单个数据点',
+                    '<ul>是数据数组，<li>是数组元素',
+                    '<ul>是变量，<li>是函数',
+                    '<ul>和<li>没有数据结构关系'
+                ],
+                correctIndex: 1,
+                explanation: '<ul>（无序列表）就像一个数组或列表容器，每个<li>（列表项）是数组中的一个元素。这种"容器+元素"的模式在HTML中频率很高，类似数据结构中的数组。'
+            },
+            {
+                id: 6,
+                question: '在真实网站代码中，class 和 id 属性的主要区别是什么？',
+                options: [
+                    'class用于样式，id用于脚本',
+                    'class可以重复使用，id必须唯一',
+                    'class更重要，id可有可无',
+                    'class和id完全可以互换使用'
+                ],
+                correctIndex: 1,
+                explanation: 'class像"形容词"，可以给多个元素添加相同分类；id像"专有名词"，整个页面中必须唯一。这就像班级（class）里可以有多个学生，但学号（id）必须唯一。'
+            },
+            {
+                id: 7,
+                question: '以下哪个是自闭合标签（不需要配对的结束标签）？',
+                options: [
+                    '<div>',
+                    '<p>',
+                    '<img>',
+                    '<section>'
+                ],
+                correctIndex: 2,
+                explanation: '<img>是自闭合标签，写作<img src="..." alt="...">即可，不需要</img>。因为图片本身就是完整内容，不需要"包裹"其他元素。类似的还有<br>、<hr>、<input>等。'
+            },
+            {
+                id: 8,
+                question: '在Chronos案例中，<script src="https://cdn.tailwindcss.com"></script>放在哪里？',
+                options: [
+                    '只能放在<body>底部',
+                    '只能放在<head>中',
+                    '可以放在<head>或<body>中，但位置会影响加载顺序',
+                    '随便放哪里都一样'
+                ],
+                correctIndex: 2,
+                explanation: '脚本可以放在<head>或<body>中，但位置很重要！放在<head>中会先加载（可能阻塞页面渲染），放在<body>底部会后加载（页面内容先显示）。Chronos将CSS框架放在<head>是为了避免页面"闪烁"。'
+            },
+            {
+                id: 9,
+                question: '从"代码即叙事"角度看，HTML标签的嵌套结构最像什么？',
+                options: [
+                    '数学公式',
+                    '大信封套小信封（树状结构）',
+                    '线性排列的句子',
+                    '平行的段落'
+                ],
+                correctIndex: 1,
+                explanation: 'HTML的嵌套就像"大信封套小信封"或树状结构：<html>包含<body>，<body>包含<div>，<div>包含<p>。这种层级关系类似统计学中的聚类分析——每个标签定义一个"数据簇"。'
+            },
+            {
+                id: 10,
+                question: '看到代码中有大量<div>标签，从"信息熵"角度应该如何理解？',
+                options: [
+                    '<div>出现频率高，所以最重要',
+                    '<div>像英语的"the"，频率高但信息量低',
+                    '<div>应该完全避免使用',
+                    '<div>只能用于布局，不能用于内容'
+                ],
+                correctIndex: 1,
+                explanation: '<div>的出现频率就像英语的"the"——很高但信息熵低。真正重要的是那些低频但高信息量的标签（如<article>、<video>、<canvas>）。这是"统计学比喻"的核心：频率≠重要性。'
+            }
+        ];
+        
+        // ==================== AI助手相关函数 ====================
+        
         function toggleAI() {
             const assistant = document.getElementById('aiAssistant');
             if (assistant) {
@@ -505,11 +791,9 @@
             
             if (!message) return;
             
-            // 显示用户消息
             addMessage(message, 'user');
             input.value = '';
             
-            // 显示"正在思考"提示
             const typingId = addMessage('AI正在思考...', 'ai');
             
             try {
@@ -521,11 +805,9 @@
                 
                 const data = await response.json();
                 
-                // 移除"正在思考"提示
                 const typingElement = document.getElementById(typingId);
                 if (typingElement) typingElement.remove();
                 
-                // 显示AI回复
                 addMessage(data.reply, 'ai');
                 
             } catch (error) {
@@ -556,7 +838,181 @@
             return messageId;
         }
         
-        console.log('✅ AI助手全局函数已加载');
+        // ==================== 代码查看器函数 ====================
+        
+        function showView(viewName) {
+            const codeDisplay = document.getElementById('codeDisplay');
+            if (!codeDisplay) {
+                console.error('错误: 找不到代码显示区域');
+                return;
+            }
+            
+            if (codeViews[viewName]) {
+                codeDisplay.textContent = codeViews[viewName];
+                
+                // 更新按钮激活状态
+                document.querySelectorAll('.viewer-controls button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // 使用event.target可能不存在，改用查找方式
+                const buttons = document.querySelectorAll('.viewer-controls button');
+                buttons.forEach((btn, index) => {
+                    const views = ['structure', 'semantic', 'annotated', 'minimal', 'chronos'];
+                    if (views[index] === viewName) {
+                        btn.classList.add('active');
+                    }
+                });
+            } else {
+                console.error('错误: 视图不存在', viewName);
+            }
+        }
+        
+        // ==================== 测验相关函数 ====================
+        
+        function initQuiz() {
+            const container = document.getElementById('quizContainer');
+            if (!container) {
+                console.error('错误: 找不到测验容器');
+                return;
+            }
+            
+            container.innerHTML = quizQuestions.map((q, index) => `
+                <div class="quiz-question" id="question-${q.id}">
+                    <h3 style="color: #667eea; margin-bottom: 1rem;">
+                        <span style="background: #667eea; color: white; padding: 4px 12px; border-radius: 6px; margin-right: 8px;">Q${index + 1}</span>
+                        ${q.question}
+                    </h3>
+                    <div class="quiz-options">
+                        ${q.options.map((option, i) => `
+                            <div class="quiz-option">
+                                <input type="radio" id="q${q.id}-opt${i}" name="question-${q.id}" value="${i}">
+                                <label for="q${q.id}-opt${i}">${option}</label>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="quiz-explanation">
+                        <strong style="color: #3b82f6;">💡 解析：</strong>
+                        ${q.explanation}
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function checkAnswers() {
+            let score = 0;
+            const totalQuestions = quizQuestions.length;
+            
+            quizQuestions.forEach(q => {
+                const questionDiv = document.getElementById(`question-${q.id}`);
+                const selected = document.querySelector(`input[name="question-${q.id}"]:checked`);
+                
+                if (selected) {
+                    const selectedIndex = parseInt(selected.value);
+                    if (selectedIndex === q.correctIndex) {
+                        score++;
+                        questionDiv.classList.add('correct');
+                        questionDiv.classList.remove('incorrect');
+                    } else {
+                        questionDiv.classList.add('incorrect');
+                        questionDiv.classList.remove('correct');
+                    }
+                    questionDiv.classList.add('answered');
+                } else {
+                    questionDiv.classList.remove('correct', 'incorrect', 'answered');
+                }
+            });
+            
+            const resultDiv = document.getElementById('quizResult');
+            const percentage = Math.round((score / totalQuestions) * 100);
+            let feedback = '';
+            let emoji = '';
+            
+            if (percentage >= 90) {
+                feedback = '优秀！您已经掌握了HTML识读的核心要领！';
+                emoji = '🏆';
+            } else if (percentage >= 70) {
+                feedback = '很好！继续保持，再多练习几次就能完全掌握！';
+                emoji = '🎉';
+            } else if (percentage >= 50) {
+                feedback = '不错！建议重新阅读教程内容，加深理解。';
+                emoji = '💪';
+            } else {
+                feedback = '加油！建议从头开始系统学习，打好基础。';
+                emoji = '📚';
+            }
+            
+            resultDiv.innerHTML = `
+                <div class="quiz-score">
+                    <h3>${emoji} 测验完成！</h3>
+                    <div class="score-display">${score} / ${totalQuestions}</div>
+                    <p style="font-size: 1.3rem; margin: 1rem 0;">正确率：${percentage}%</p>
+                    <p style="font-size: 1.1rem; opacity: 0.95;">${feedback}</p>
+                    <button onclick="resetQuiz()" style="margin-top: 1.5rem; padding: 0.8rem 2rem; background: white; color: #667eea; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem;">
+                        再测一次
+                    </button>
+                </div>
+            `;
+            resultDiv.style.display = 'block';
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        
+        function resetQuiz() {
+            document.querySelectorAll('.quiz-question').forEach(q => {
+                q.classList.remove('correct', 'incorrect', 'answered');
+                q.querySelectorAll('input[type="radio"]').forEach(input => {
+                    input.checked = false;
+                });
+            });
+            document.getElementById('quizResult').style.display = 'none';
+            document.getElementById('quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        
+        function toggleCSS() {
+            const styleSheets = document.styleSheets;
+            let cssEnabled = true;
+            cssEnabled = !cssEnabled;
+            
+            for (let i = 0; i < styleSheets.length; i++) {
+                styleSheets[i].disabled = !cssEnabled;
+            }
+            
+            if (event && event.target) {
+                event.target.textContent = cssEnabled ? '切换样式显示' : '恢复样式显示';
+            }
+        }
+        
+        // ==================== 页面加载初始化 ====================
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log('✅ 页面已加载，初始化功能...');
+            
+            // 初始化代码查看器
+            if (document.getElementById('codeDisplay')) {
+                showView('structure');
+                console.log('✅ 代码查看器已初始化');
+            }
+            
+            // 初始化测验
+            if (document.getElementById('quizContainer')) {
+                initQuiz();
+                console.log('✅ 测验系统已初始化');
+            }
+            
+            // 平滑滚动
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+            
+            console.log('✅ 所有全局函数已加载完成');
+        });
+        
     </script>
 </head>
 <body>
@@ -1116,516 +1572,8 @@
         </div>
     </div>
 
-    <!-- ==================== JavaScript：网页的"行为逻辑" ==================== -->
-    <script>
-        // === 代码视图切换功能 ===
-        const codeViews = {
-            structure: `<!DOCTYPE html>
-<html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8">
-    <title>示例网页</title>
-  </head>
-  <body>
-    <header>
-      <nav>
-        <ul>
-          <li><a href="#home">首页</a></li>
-        </ul>
-      </nav>
-    </header>
-    <main>
-      <article>
-        <h1>文章标题</h1>
-        <p>文章内容</p>
-      </article>
-    </main>
-    <footer>
-      <p>版权信息</p>
-    </footer>
-  </body>
-</html>`,
-            semantic: `<!-- 语义化解读 -->
-
-<html>           ← 根容器："整个文档"
-  <head>         ← 元数据区："网页简历"
-    <meta>       ← 元信息："字符编码"
-    <title>      ← 标题："浏览器标签页显示的文字"
-  </head>
-  
-  <body>         ← 主体区："用户看到的所有内容"
-    <header>     ← 页眉："网站顶部"
-      <nav>      ← 导航："菜单栏"
-        <ul>     ← 无序列表："菜单项容器"
-          <li>   ← 列表项："单个菜单项"
-            <a>  ← 锚点："可点击的链接"
-            
-    <main>       ← 主内容："页面核心内容"
-      <article>  ← 文章："独立的内容单元"
-        <h1>     ← 一级标题："最重要的标题"
-        <p>      ← 段落："文本段落"
-        
-    <footer>     ← 页脚："网站底部"
-      <p>        ← 段落："版权声明文本"`,
-            annotated: `<!DOCTYPE html> <!-- 文档类型声明："我是HTML5文档" -->
-<html lang="zh-CN"> <!-- 根元素，语言标记 -->
-  
-  <head> <!-- 头部开始：不可见的元信息 -->
-    <meta charset="UTF-8"> <!-- 字符编码：支持中文 -->
-    <title>示例网页</title> <!-- 浏览器标签页标题 -->
-  </head> <!-- 头部结束 -->
-  
-  <body> <!-- 主体开始：所有可见内容 -->
+    <!-- ==================== JavaScript已在head中定义 ==================== -->
+    <!-- 所有交互功能已在页面顶部加载，无需重复定义 -->
     
-    <!-- ========== 页眉区域 ========== -->
-    <header> 
-      <nav> <!-- 导航容器 -->
-        <ul> <!-- 无序列表：菜单项 -->
-          <li> <!-- 列表项 -->
-            <a href="#home">首页</a> <!-- 链接 -->
-          </li>
-        </ul>
-      </nav>
-    </header>
-    
-    <!-- ========== 主内容区域 ========== -->
-    <main>
-      <article> <!-- 文章容器：独立内容单元 -->
-        <h1>文章标题</h1> <!-- 一级标题：最重要 -->
-        <p>文章内容</p> <!-- 段落：文本内容 -->
-      </article>
-    </main>
-    
-    <!-- ========== 页脚区域 ========== -->
-    <footer>
-      <p>版权信息</p> <!-- 版权声明 -->
-    </footer>
-    
-  </body> <!-- 主体结束 -->
-</html> <!-- 文档结束 -->`,
-            minimal: `<!-- 提取核心逻辑：去除所有容器和装饰 -->
-
-标题：示例网页
-
-导航：
-  → 首页
-
-文章标题
-文章内容
-
-版权信息
-
-/* 这就是页面的"数据骨架" */
-/* HTML的作用就是给这些内容加上结构和语义 */`,
-            chronos: `<!-- Chronos英语史探索网站 - 真实案例精选 -->
-
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <!-- === 基础配置：网页的"身份证" === -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chronos: 英语史探索 - 龚凤乾教授设计</title>
-    
-    <!-- === 外部资源：从CDN加载框架和库 === -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    
-    <!-- === 自定义样式：特殊视觉效果 === -->
-    <style>
-        /* 双语网格布局 */
-        .bilingual-grid { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 2rem; 
-        }
-        
-        /* 播放按钮动画效果 */
-        .play-btn.playing { 
-            background: #22c55e; 
-            animation: pulse 1s infinite; 
-        }
-        
-        @keyframes pulse { 
-            0%, 100% { transform: scale(1); } 
-            50% { transform: scale(1.05); } 
-        }
-    </style>
-</head>
-
-<body class="bg-slate-50">
-    <!-- === React挂载点：整个应用的"根" === -->
-    <div id="root"></div>
-    
-    <!-- === React组件代码：用JSX语法编写 === -->
-    <script type="text/babel">
-        const { useState } = React;
-        
-        function App() {
-            // 状态管理：当前选中的时代
-            const [currentEra, setCurrentEra] = useState('old-english');
-            
-            return (
-                <div className="flex">
-                    {/* === 侧边栏：固定导航 === */}
-                    <aside className="w-72 bg-slate-900 text-white fixed h-screen">
-                        <div className="p-8">
-                            <h2 className="text-3xl font-black">Chronos</h2>
-                            <p className="text-sm text-slate-400">英语史时代探索</p>
-                            <p className="text-xs text-slate-500">龚凤乾教授 设计</p>
-                        </div>
-                        
-                        {/* === 导航按钮列表 === */}
-                        <nav className="p-4">
-                            <button className="w-full p-4 bg-blue-600 rounded-xl">
-                                <div className="font-bold">Old English</div>
-                                <div className="text-xs">古英语</div>
-                            </button>
-                        </nav>
-                    </aside>
-                    
-                    {/* === 主内容区：可滚动 === */}
-                    <main className="ml-72 flex-1 p-10">
-                        <header className="mb-10">
-                            <h1 className="text-5xl font-black">Old English</h1>
-                            <span className="px-3 py-1 bg-blue-100 rounded-full">
-                                c. 450 - 1150 CE
-                            </span>
-                        </header>
-                        
-                        {/* === 双语内容网格 === */}
-                        <div className="bilingual-grid">
-                            {/* 中文 */}
-                            <div className="p-8 bg-slate-50 rounded-2xl">
-                                <span className="text-xs font-bold text-slate-400">
-                                    双语简介 (中文)
-                                </span>
-                                <button className="play-btn">
-                                    <i className="fas fa-volume-up"></i>
-                                </button>
-                                <p>盎格鲁-撒克逊人带来的语言...</p>
-                            </div>
-                            
-                            {/* 英文 */}
-                            <div className="p-8 bg-blue-50 rounded-2xl">
-                                <span className="text-xs font-bold text-blue-400">
-                                    Bilingual Context (English)
-                                </span>
-                                <button className="play-btn">
-                                    <i className="fas fa-volume-up"></i>
-                                </button>
-                                <p className="italic">Language of Anglo-Saxons...</p>
-                            </div>
-                        </div>
-                    </main>
-                </div>
-            );
-        }
-        
-        // 渲染到页面
-        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
-    </script>
-</body>
-</html>
-
-/* === Chronos案例的关键特征分析 === */
-
-1. 【多框架整合】
-   - Tailwind CSS (实用类CSS框架)
-   - React (UI框架)
-   - Font Awesome (图标库)
-   
-2. 【响应式布局】
-   - w-72: 固定宽度侧边栏
-   - flex: 弹性布局
-   - grid: 网格布局（双语内容）
-   
-3. 【语义化结构】
-   - <aside>: 侧边栏
-   - <nav>: 导航区
-   - <main>: 主内容
-   - <header>: 页眉
-   
-4. 【交互特性】
-   - useState: React状态管理
-   - onClick: 事件处理
-   - 动画效果: CSS @keyframes
-   
-5. 【命名规范】
-   - className: React中的class
-   - bg-slate-900: Tailwind的颜色类
-   - bilingual-grid: 自定义语义类名`
-        };
-        
-        // 显示指定视图
-        function showView(viewName) {
-            document.getElementById('codeDisplay').textContent = codeViews[viewName];
-            
-            // 更新按钮激活状态
-            document.querySelectorAll('.viewer-controls button').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-        }
-        
-        // 页面加载时显示默认视图
-        window.addEventListener('DOMContentLoaded', () => {
-            showView('structure');
-        });
-        
-        // === 切换CSS样式功能 ===
-        let cssEnabled = true;
-        function toggleCSS() {
-            const styleSheets = document.styleSheets;
-            cssEnabled = !cssEnabled;
-            
-            for (let i = 0; i < styleSheets.length; i++) {
-                styleSheets[i].disabled = !cssEnabled;
-            }
-            
-            event.target.textContent = cssEnabled ? '切换样式显示' : '恢复样式显示';
-        }
-        
-        // === 平滑滚动 ===
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-        
-        // === 测验题系统 ===
-        const quizQuestions = [
-            {
-                id: 1,
-                question: '在HTML中，<head>和<body>的主要区别是什么？',
-                options: [
-                    '<head>包含可见内容，<body>包含元数据',
-                    '<head>包含元数据和配置，<body>包含可见内容',
-                    '<head>和<body>没有实质区别，都可以放任何内容',
-                    '<head>用于样式，<body>用于脚本'
-                ],
-                correctIndex: 1,
-                explanation: '<head>是网页的"简历区"，包含标题、样式、脚本等元数据，不直接显示。<body>是网页的"主体区"，包含所有用户可见的内容。这就像书的版权页（head）和正文（body）的区别。'
-            },
-            {
-                id: 2,
-                question: '以下哪个标签是语义化标签，比<div>更能表达内容含义？',
-                options: [
-                    '<span>',
-                    '<article>',
-                    '<container>',
-                    '<box>'
-                ],
-                correctIndex: 1,
-                explanation: '<article>是语义化标签，明确表示"文章"或"独立内容单元"。而<div>只是通用容器，本身没有特定语义。使用语义化标签让代码更易读，对SEO和无障碍访问也更友好。'
-            },
-            {
-                id: 3,
-                question: '在Chronos案例中，className="w-72 bg-slate-900" 使用的是什么CSS框架的命名风格？',
-                options: [
-                    'Bootstrap',
-                    'Tailwind CSS',
-                    'Material UI',
-                    'Foundation'
-                ],
-                correctIndex: 1,
-                explanation: 'Tailwind CSS使用实用类（utility classes）命名法：w-72表示宽度，bg-slate-900表示深灰色背景。这种命名直接描述样式属性，而不是语义化的类名。'
-            },
-            {
-                id: 4,
-                question: 'href 属性是什么英文词的缩写？',
-                options: [
-                    'Hyper Reference',
-                    'Hypertext Reference',
-                    'HTML Reference',
-                    'Hyperlink Reference'
-                ],
-                correctIndex: 1,
-                explanation: 'href是"Hypertext Reference"（超文本引用）的缩写。记住英文全称可以帮助理解：它用于"引用"另一个"超文本"资源的位置。'
-            },
-            {
-                id: 5,
-                question: '看到这段代码：<ul><li>项目1</li><li>项目2</li></ul>，从统计学角度如何理解？',
-                options: [
-                    '<ul>是单个数据点',
-                    '<ul>是数据数组，<li>是数组元素',
-                    '<ul>是变量，<li>是函数',
-                    '<ul>和<li>没有数据结构关系'
-                ],
-                correctIndex: 1,
-                explanation: '<ul>（无序列表）就像一个数组或列表容器，每个<li>（列表项）是数组中的一个元素。这种"容器+元素"的模式在HTML中频率很高，类似数据结构中的数组。'
-            },
-            {
-                id: 6,
-                question: '在真实网站代码中，class 和 id 属性的主要区别是什么？',
-                options: [
-                    'class用于样式，id用于脚本',
-                    'class可以重复使用，id必须唯一',
-                    'class更重要，id可有可无',
-                    'class和id完全可以互换使用'
-                ],
-                correctIndex: 1,
-                explanation: 'class像"形容词"，可以给多个元素添加相同分类；id像"专有名词"，整个页面中必须唯一。这就像班级（class）里可以有多个学生，但学号（id）必须唯一。'
-            },
-            {
-                id: 7,
-                question: '以下哪个是自闭合标签（不需要配对的结束标签）？',
-                options: [
-                    '<div>',
-                    '<p>',
-                    '<img>',
-                    '<section>'
-                ],
-                correctIndex: 2,
-                explanation: '<img>是自闭合标签，写作<img src="..." alt="...">即可，不需要</img>。因为图片本身就是完整内容，不需要"包裹"其他元素。类似的还有<br>、<hr>、<input>等。'
-            },
-            {
-                id: 8,
-                question: '在Chronos案例中，<script src="https://cdn.tailwindcss.com"></script>放在哪里？',
-                options: [
-                    '只能放在<body>底部',
-                    '只能放在<head>中',
-                    '可以放在<head>或<body>中，但位置会影响加载顺序',
-                    '随便放哪里都一样'
-                ],
-                correctIndex: 2,
-                explanation: '脚本可以放在<head>或<body>中，但位置很重要！放在<head>中会先加载（可能阻塞页面渲染），放在<body>底部会后加载（页面内容先显示）。Chronos将CSS框架放在<head>是为了避免页面"闪烁"。'
-            },
-            {
-                id: 9,
-                question: '从"代码即叙事"角度看，HTML标签的嵌套结构最像什么？',
-                options: [
-                    '数学公式',
-                    '大信封套小信封（树状结构）',
-                    '线性排列的句子',
-                    '平行的段落'
-                ],
-                correctIndex: 1,
-                explanation: 'HTML的嵌套就像"大信封套小信封"或树状结构：<html>包含<body>，<body>包含<div>，<div>包含<p>。这种层级关系类似统计学中的聚类分析——每个标签定义一个"数据簇"。'
-            },
-            {
-                id: 10,
-                question: '看到代码中有大量<div>标签，从"信息熵"角度应该如何理解？',
-                options: [
-                    '<div>出现频率高，所以最重要',
-                    '<div>像英语的"the"，频率高但信息量低',
-                    '<div>应该完全避免使用',
-                    '<div>只能用于布局，不能用于内容'
-                ],
-                correctIndex: 1,
-                explanation: '<div>的出现频率就像英语的"the"——很高但信息熵低。真正重要的是那些低频但高信息量的标签（如<article>、<video>、<canvas>）。这是"统计学比喻"的核心：频率≠重要性。'
-            }
-        ];
-        
-        // 初始化测验
-        function initQuiz() {
-            const container = document.getElementById('quizContainer');
-            container.innerHTML = quizQuestions.map((q, index) => `
-                <div class="quiz-question" id="question-${q.id}">
-                    <h3 style="color: #667eea; margin-bottom: 1rem;">
-                        <span style="background: #667eea; color: white; padding: 4px 12px; border-radius: 6px; margin-right: 8px;">Q${index + 1}</span>
-                        ${q.question}
-                    </h3>
-                    <div class="quiz-options">
-                        ${q.options.map((option, i) => `
-                            <div class="quiz-option">
-                                <input type="radio" id="q${q.id}-opt${i}" name="question-${q.id}" value="${i}">
-                                <label for="q${q.id}-opt${i}">${option}</label>
-                            </div>
-                        `).join('')}
-                    </div>
-                    <div class="quiz-explanation">
-                        <strong style="color: #3b82f6;">💡 解析：</strong>
-                        ${q.explanation}
-                    </div>
-                </div>
-            `).join('');
-        }
-        
-        // 检查答案
-        function checkAnswers() {
-            let score = 0;
-            let totalQuestions = quizQuestions.length;
-            
-            quizQuestions.forEach(q => {
-                const questionDiv = document.getElementById(`question-${q.id}`);
-                const selected = document.querySelector(`input[name="question-${q.id}"]:checked`);
-                
-                if (selected) {
-                    const selectedIndex = parseInt(selected.value);
-                    if (selectedIndex === q.correctIndex) {
-                        score++;
-                        questionDiv.classList.add('correct');
-                        questionDiv.classList.remove('incorrect');
-                    } else {
-                        questionDiv.classList.add('incorrect');
-                        questionDiv.classList.remove('correct');
-                    }
-                    questionDiv.classList.add('answered');
-                } else {
-                    questionDiv.classList.remove('correct', 'incorrect', 'answered');
-                }
-            });
-            
-            // 显示得分
-            const resultDiv = document.getElementById('quizResult');
-            const percentage = Math.round((score / totalQuestions) * 100);
-            let feedback = '';
-            let emoji = '';
-            
-            if (percentage >= 90) {
-                feedback = '优秀！您已经掌握了HTML识读的核心要领！';
-                emoji = '🏆';
-            } else if (percentage >= 70) {
-                feedback = '很好！继续保持，再多练习几次就能完全掌握！';
-                emoji = '🎉';
-            } else if (percentage >= 50) {
-                feedback = '不错！建议重新阅读教程内容，加深理解。';
-                emoji = '💪';
-            } else {
-                feedback = '加油！建议从头开始系统学习，打好基础。';
-                emoji = '📚';
-            }
-            
-            resultDiv.innerHTML = `
-                <div class="quiz-score">
-                    <h3>${emoji} 测验完成！</h3>
-                    <div class="score-display">${score} / ${totalQuestions}</div>
-                    <p style="font-size: 1.3rem; margin: 1rem 0;">正确率：${percentage}%</p>
-                    <p style="font-size: 1.1rem; opacity: 0.95;">${feedback}</p>
-                    <button onclick="resetQuiz()" style="margin-top: 1.5rem; padding: 0.8rem 2rem; background: white; color: #667eea; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem;">
-                        再测一次
-                    </button>
-                </div>
-            `;
-            resultDiv.style.display = 'block';
-            
-            // 滚动到结果
-            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-        
-        // 重置测验
-        function resetQuiz() {
-            document.querySelectorAll('.quiz-question').forEach(q => {
-                q.classList.remove('correct', 'incorrect', 'answered');
-                q.querySelectorAll('input[type="radio"]').forEach(input => {
-                    input.checked = false;
-                });
-            });
-            document.getElementById('quizResult').style.display = 'none';
-            document.getElementById('quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-        
-        // 页面加载时初始化测验
-        window.addEventListener('DOMContentLoaded', () => {
-            showView('structure');
-            initQuiz();
-        });
-    </script>
 </body>
 </html>
